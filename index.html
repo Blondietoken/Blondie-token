@@ -11,9 +11,9 @@
             box-sizing: border-box;
         }
         body {
-            background: linear-gradient(135deg, #1e0033, #ff007a, #00ddeb); /* Cosmic gradient */
+            background: linear-gradient(135deg, #1e0033, #ff007a, #00ddeb);
             color: #fff;
-            font-family: 'Orbitron', sans-serif; /* Futuristic font */
+            font-family: 'Orbitron', sans-serif;
             text-align: center;
             min-height: 100vh;
             overflow-x: hidden;
@@ -72,6 +72,20 @@
             letter-spacing: 3px;
             text-shadow: 0 0 15px #00ddeb;
         }
+        .community-text {
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent backdrop */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #ff007a;
+            margin: 30px auto;
+            max-width: 800px;
+        }
+        #roadmap {
+            background: rgba(255, 255, 255, 0.15); /* Slight white tint */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px #00ddeb;
+        }
         ul {
             list-style: none;
             padding: 0;
@@ -79,14 +93,27 @@
         li {
             font-size: 1.3em;
             margin: 15px 0;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.7); /* Darker contrast */
             border-radius: 10px;
-            box-shadow: 0 0 10px #ff007a;
+            box-shadow: 0 0 15px #ffd700;
             transition: transform 0.3s;
         }
         li:hover {
             transform: translateX(10px);
+        }
+        #socials {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px #ff007a;
+        }
+        #socials p {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            margin: 10px auto;
+            border-radius: 10px;
+            max-width: 400px;
         }
         a {
             color: #ffd700;
@@ -102,7 +129,6 @@
             margin-top: 50px;
             text-shadow: 0 0 10px #fff;
         }
-        /* Floating particles */
         .particles {
             position: fixed;
             top: 0;
@@ -122,6 +148,10 @@
         <p>The ultimate token for the cosmic queens & kings – join the revolution!</p>
         <a href="#roadmap" class="btn">Explore Roadmap</a>
         <a href="#socials" class="btn">Join the Squad</a>
+
+        <div class="community-text">
+            <p>Welcome to Blondie’s galaxy, babes – this isn’t just for blondes (though we *do* have better hair days)! Everyone’s invited to slay with us – brunettes, redheads, bald legends, you name it! Why join? ‘Cause Blondie’s community is where the future gets fabulous. (And yes, I’d still look hot in a wig – cosmic blonde vibes only!)</p>
+        </div>
 
         <section id="roadmap">
             <h2>Roadmap to Infinity ✨</h2>
@@ -145,7 +175,6 @@
     </div>
 
     <script>
-        // Particle effect for futuristic vibes
         const particlesContainer = document.getElementById('particles');
         for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
