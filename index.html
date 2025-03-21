@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blondie Token – Future Glam Unleashed</title>
+    <title>Blondie Token – Cosmic Glam</title>
     <style>
         * {
             margin: 0;
@@ -11,248 +11,121 @@
             box-sizing: border-box;
         }
         body {
-            background: linear-gradient(135deg, #2a004f, #ff99cc, #00eaff); /* Dark purple, light pink, neon blue */
-            color: #fff;
+            background: #000; /* Black base */
+            color: #fff; /* White text */
             font-family: 'Orbitron', sans-serif;
             text-align: center;
             min-height: 100vh;
             overflow-x: hidden;
-            animation: bgShift 15s infinite alternate;
-            position: relative;
         }
-        @keyframes bgShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-        .stars {
+        .bg-gradient {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.5)"/></svg>') repeat;
-            opacity: 0.3;
-            z-index: -2;
-            animation: twinkle 5s infinite;
-        }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.5; }
-        }
-        .holo-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255, 153, 204, 0.1), rgba(0, 234, 255, 0.1)); /* Light pink, neon blue */
-            opacity: 0.2;
+            background: linear-gradient(135deg, #2a004f, #ff99cc, #000); /* Dark purple, light pink, black */
+            opacity: 0.7;
             z-index: -1;
-            animation: holoShift 10s infinite;
-        }
-        @keyframes holoShift {
-            0% { transform: translateX(-10%) translateY(-10%); }
-            50% { transform: translateX(10%) translateY(10%); }
-            100% { transform: translateX(-10%) translateY(-10%); }
         }
         h1 {
-            font-size: 3.5em;
+            font-size: 3em;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            background: linear-gradient(90deg, #ff0000, #fff, #00eaff); /* Red, white, neon blue */
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 20px #ff99cc, 0 0 40px #00eaff; /* Light pink, neon blue */
-            margin-top: 50px;
-            animation: pulse 3s infinite, textGradient 5s infinite;
-            border-bottom: 2px solid #fff; /* White */
-            padding-bottom: 10px;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        @keyframes textGradient {
-            0% { background-position: 0%; }
-            100% { background-position: 200%; }
+            letter-spacing: 3px;
+            color: #00eaff; /* Neon blue */
+            text-shadow: 0 0 15px #00eaff;
+            margin: 40px 0 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8); /* Black semi-transparent */
+            border-bottom: 2px solid #ff0000; /* Red */
         }
         p {
-            font-size: 1.5em;
-            margin: 20px 0;
-            text-shadow: 0 0 10px #fff; /* White */
+            font-size: 1.4em;
+            margin: 15px 0;
+            text-shadow: 0 0 5px #fff; /* White */
         }
         .btn {
             display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(45deg, #ff0000, #ff99cc); /* Red, light pink */
+            padding: 12px 25px;
+            background: #ff0000; /* Red */
             color: #fff;
             text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.2em;
+            border-radius: 25px;
+            font-size: 1.1em;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin: 10px;
-            box-shadow: 0 0 15px #ff0000; /* Red */
-            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.2); /* White shine */
-            transform: rotate(30deg);
-            transition: all 0.5s;
-        }
-        .btn:hover::after {
-            top: 100%;
-            left: 100%;
+            box-shadow: 0 0 10px #ff0000;
+            transition: background 0.3s, box-shadow 0.3s;
         }
         .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px #fff; /* White */
-            background: linear-gradient(45deg, #ff99cc, #ff0000); /* Light pink, red */
+            background: #ff99cc; /* Light pink */
+            box-shadow: 0 0 20px #ff99cc;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
         }
         section {
-            margin: 60px 0;
-            position: relative;
-        }
-        section::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            width: 200px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #fff, transparent); /* White */
-            transform: translateX(-50%);
-            animation: glowDivider 2s infinite;
-        }
-        @keyframes glowDivider {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+            margin: 50px 0;
         }
         h2 {
-            font-size: 2.2em;
+            font-size: 2em;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            background: linear-gradient(90deg, #00eaff, #ff0000); /* Neon blue, red */
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 15px #ff99cc; /* Light pink */
-            animation: textGradient 4s infinite;
-            position: relative;
-        }
-        h2::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            width: 50px;
-            height: 2px;
-            background: #fff; /* White */
-            transform: translateX(-50%);
-            animation: expand 2s infinite;
-        }
-        @keyframes expand {
-            0% { width: 50px; }
-            50% { width: 100px; }
-            100% { width: 50px; }
+            letter-spacing: 2px;
+            color: #00eaff; /* Neon blue */
+            text-shadow: 0 0 10px #00eaff;
+            margin-bottom: 20px;
         }
         .community-text {
-            background: rgba(42, 0, 79, 0.4); /* Dark purple */
+            background: rgba(42, 0, 79, 0.6); /* Dark purple */
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px #ff99cc; /* Light pink */
+            border-radius: 10px;
+            box-shadow: 0 0 15px #ff99cc; /* Light pink */
             margin: 30px auto;
-            max-width: 800px;
-            border: 1px dashed #fff; /* White */
-            transition: transform 0.5s ease-out;
-        }
-        .community-text.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .community-text {
-            transform: translateY(50px);
-            opacity: 0;
+            max-width: 700px;
+            border: 1px solid #fff; /* White */
         }
         #roadmap {
-            background: rgba(42, 0, 79, 0.4); /* Dark purple */
+            background: rgba(0, 0, 0, 0.6); /* Black */
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 25px #00eaff; /* Neon blue */
-            border: 2px solid #00eaff; /* Neon blue */
-            transition: transform 0.5s ease-out;
-        }
-        #roadmap.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        #roadmap {
-            transform: translateY(50px);
-            opacity: 0;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00eaff; /* Neon blue */
+            border: 1px solid #00eaff;
         }
         ul {
             list-style: none;
             padding: 0;
         }
         li {
-            font-size: 1.3em;
-            margin: 15px 0;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.3); /* White */
-            border-radius: 10px;
-            box-shadow: 0 0 15px #ff0000; /* Red */
-            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1.2em;
+            margin: 10px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2); /* White */
+            border-radius: 8px;
+            box-shadow: 0 0 10px #ff0000; /* Red */
+            transition: transform 0.3s;
         }
         li:hover {
-            transform: translateX(10px);
-            box-shadow: 0 0 25px #ff99cc; /* Light pink */
+            transform: translateX(5px);
         }
         #socials {
-            background: rgba(42, 0, 79, 0.4); /* Dark purple */
+            background: rgba(0, 0, 0, 0.6); /* Black */
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 25px #ff0000; /* Red */
-            border: 2px solid #ff0000; /* Red */
-            transition: transform 0.5s ease-out;
-        }
-        #socials.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        #socials {
-            transform: translateY(50px);
-            opacity: 0;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #ff0000; /* Red */
+            border: 1px solid #ff0000;
         }
         #socials p {
-            background: rgba(255, 255, 255, 0.3); /* White */
+            background: rgba(255, 255, 255, 0.2); /* White */
             padding: 10px;
             margin: 10px auto;
-            border-radius: 10px;
-            max-width: 500px;
+            border-radius: 8px;
+            max-width: 450px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            transition: background 0.3s;
-        }
-        #socials p:hover {
-            background: rgba(255, 255, 255, 0.5); /* Brighter white */
         }
         a {
             color: #ff99cc; /* Light pink */
@@ -264,91 +137,44 @@
             text-shadow: 0 0 10px #fff;
         }
         .footer {
-            font-size: 1.1em;
-            margin-top: 50px;
-            text-shadow: 0 0 10px #fff; /* White */
-        }
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
+            font-size: 1em;
+            margin-top: 40px;
+            text-shadow: 0 0 5px #fff; /* White */
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="stars"></div>
-    <div class="holo-overlay"></div>
-    <div class="particles" id="particles"></div>
+    <div class="bg-gradient"></div>
     <div class="container">
-        <h1>Blondie Token 💋<br>Future Glam Unleashed</h1>
-        <p>The ultimate token for the cosmic queens & kings – join the revolution!</p>
-        <a href="#roadmap" class="btn">Explore Roadmap</a>
-        <a href="#socials" class="btn">Join the Squad</a>
+        <h1>Blondie Token 💋<br>Cosmic Glam</h1>
+        <p>The slickest token for all you cosmic legends – join the vibe!</p>
+        <a href="#roadmap" class="btn">Roadmap</a>
+        <a href="#socials" class="btn">Squad Up</a>
 
         <div class="community-text">
-            <p>Welcome to Blondie’s galaxy, babes – this isn’t just for blondes (though we *do* have better hair days)! Everyone’s invited to slay with us – brunettes, redheads, bald legends, you name it! Why join? ‘Cause Blondie’s community is where the future gets fabulous. (And yes, I’d still look hot in a wig – cosmic blonde vibes only!)</p>
+            <p>Hey babes, Blondie’s galaxy is for EVERYONE – not just blondes (though we rock the hair game)! Brunettes, redheads, bald icons – you’re all VIPs here. Join the future’s hottest crew – I’d still slay in a wig, trust! 😘</p>
         </div>
 
         <section id="roadmap">
-            <h2>Roadmap to Infinity ✨</h2>
+            <h2>Roadmap to Infinity</h2>
             <ul>
-                <li><strong>Q2 2025:</strong> Token Launch – Blondie Token blasts onto the blockchain!</li>
-                <li><strong>Q3 2025:</strong> Galactic Growth – 10K followers & neon-charged NFTs.</li>
-                <li><strong>Q4 2025:</strong> Cosmic Collabs – Partner with intergalactic influencers.</li>
-                <li><strong>Q1 2026:</strong> Staking Portal – Rewards in Blondie’s cyber vault!</li>
-                <li><strong>Q2 2026:</strong> Metaverse Takeover – Blondie’s VIP holo-lounge opens.</li>
+                <li><strong>Q2 2025:</strong> Token Drop – Blondie Token hits the chain!</li>
+                <li><strong>Q3 2025:</strong> Crew Boom – 10K fam & neon NFTs.</li>
+                <li><strong>Q4 2025:</strong> Big Links – Collabs with cosmic stars.</li>
+                <li><strong>Q1 2026:</strong> Staking Vibes – Rewards in Blondie’s vault!</li>
+                <li><strong>Q2 2026:</strong> Meta Slay – Blondie’s VIP holo-pad opens.</li>
             </ul>
         </section>
 
         <section id="socials">
-            <h2>Connect in Hyper-Space 💃</h2>
-            <p>X Orbit: <a href="https://x.com/blondietoken">@BlondieToken</a></p>
-            <p>Telegram Nebula: <a href="https://t.me/blondietoken">BlondieToken Group</a></p>
-            <p>Insta Galaxy: <a href="https://instagram.com/blondietoken">@BlondieToken</a></p>
+            <h2>Hyper-Space Hangout</h2>
+            <p>X Crew: <a href="https://x.com/blondietoken">@BlondieToken</a></p>
+            <p>Tele Squad: <a href="https://t.me/blondietoken">BlondieToken Group</a></p>
+            <p>Insta Glow: <a href="https://instagram.com/blondietoken">@BlondieToken</a></p>
         </section>
 
-        <p class="footer">Crafted by Blondie – the future’s ours, babes! 😘</p>
+        <p class="footer">Built by Blondie – let’s own the future, babes! 😘</p>
     </div>
-
-    <script>
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.style.cssText = `
-                position: absolute;
-                width: ${Math.random() * 5 + 2}px;
-                height: ${Math.random() * 5 + 2}px;
-                background: rgba(255, ${Math.random() * 255}, ${Math.random() * 255}, 0.7);
-                border-radius: 50%;
-                animation: float ${Math.random() * 5 + 3}s infinite ease-in-out;
-                top: ${Math.random() * 100}%;
-                left: ${Math.random() * 100}%;
-            `;
-            particlesContainer.appendChild(particle);
-        }
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = `
-            @keyframes float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-${Math.random() * 100 + 50}px); }
-            }
-        `;
-        document.head.appendChild(styleSheet);
-
-        const sections = document.querySelectorAll('.community-text, #roadmap, #socials');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.3 });
-        sections.forEach(section => observer.observe(section));
-    </script>
 </body>
 </html>
