@@ -29,147 +29,149 @@
             z-index: -1;
         }
         header {
-            padding: 20px;
-            border-bottom: 3px solid #ff0000; /* Red */
+            padding: 20px 0;
+            border-bottom: 2px solid #ff0000; /* Red */
+            background: rgba(0, 0, 0, 0.8); /* Subtle black for cohesion */
         }
         .header-img {
             width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
+            max-width: 400px; /* Smaller for balance */
+            margin: 15px auto;
             display: block;
-            box-shadow: 0 0 20px #00eaff; /* Neon blue */
+            box-shadow: 0 0 15px #00eaff; /* Neon blue */
         }
         h1 {
-            font-size: 2.8em;
+            font-size: 2.5em; /* Slightly smaller for fit */
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: #00eaff; /* Neon blue */
-            text-shadow: 0 0 15px #00eaff, 0 0 30px #00eaff;
-            margin: 15px 0;
+            text-shadow: 0 0 10px #00eaff;
+            margin: 10px 0;
         }
         .intro {
-            padding: 30px 20px;
+            padding: 25px;
             background: rgba(42, 0, 79, 0.7); /* Dark purple */
-            border-radius: 15px;
-            margin: 20px auto;
-            max-width: 800px;
-            box-shadow: 0 0 20px #ff99cc; /* Light pink */
+            border-radius: 10px;
+            margin: 30px auto;
+            max-width: 700px; /* Tighter for alignment */
+            box-shadow: 0 0 15px #ff99cc; /* Light pink */
         }
         .intro p {
-            font-size: 1.5em;
+            font-size: 1.3em; /* Slightly smaller */
             text-shadow: 0 0 5px #fff; /* White */
-            line-height: 1.4;
+            line-height: 1.5;
+            margin-bottom: 20px;
         }
         .btn {
             display: inline-block;
-            padding: 15px 30px;
+            padding: 12px 25px;
             background: #ff0000; /* Red */
             color: #fff;
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 1.2em;
+            border-radius: 25px;
+            font-size: 1.1em;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin: 15px;
-            box-shadow: 0 0 15px #ff0000;
+            margin: 10px;
+            box-shadow: 0 0 10px #ff0000;
             transition: background 0.3s, box-shadow 0.3s;
         }
         .btn:hover {
             background: #ff99cc; /* Light pink */
-            box-shadow: 0 0 25px #ff99cc;
+            box-shadow: 0 0 20px #ff99cc;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1000px; /* Reduced for tighter layout */
             margin: 0 auto;
             padding: 20px;
         }
         section {
-            margin: 60px 0;
+            margin: 50px 0;
         }
         h2 {
-            font-size: 2.2em;
+            font-size: 2em;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #00eaff; /* Neon blue */
-            text-shadow: 0 0 15px #00eaff;
-            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00eaff;
+            margin-bottom: 25px;
             position: relative;
         }
         h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
-            width: 100px;
+            width: 80px;
             height: 2px;
             background: #ff0000; /* Red */
             transform: translateX(-50%);
         }
         #roadmap {
             background: rgba(0, 0, 0, 0.9); /* Black */
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 25px #00eaff; /* Neon blue */
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #00eaff; /* Neon blue */
             border: 2px solid #00eaff;
         }
         .roadmap-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* Adjusted for fit */
+            gap: 20px;
         }
         .roadmap-item {
             position: relative;
-            padding: 25px;
+            padding: 20px;
             background: #2a004f; /* Dark purple */
-            border-radius: 12px;
-            box-shadow: 0 0 15px #ff0000; /* Red */
+            border-radius: 8px;
+            box-shadow: 0 0 10px #ff0000; /* Red */
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .roadmap-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 30px #ff99cc; /* Light pink */
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px #ff99cc; /* Light pink */
         }
         .roadmap-item strong {
-            font-size: 1.4em;
+            font-size: 1.3em;
             color: #ff99cc; /* Light pink */
             text-shadow: 0 0 5px #ff99cc;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .roadmap-item p {
-            font-size: 1.1em;
-            text-shadow: 0 0 5px #fff; /* White */
+            font-size: 1em;
+            text-shadow: 0 0 3px #fff; /* White */
         }
         .roadmap-item::before {
             content: '🔥';
             position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 1.8em;
+            top: 8px;
+            right: 12px;
+            font-size: 1.5em;
             color: #ff0000; /* Red */
             text-shadow: 0 0 5px #ff0000;
         }
         #socials {
             background: rgba(0, 0, 0, 0.9); /* Black */
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 25px #ff0000; /* Red */
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #ff0000; /* Red */
             border: 2px solid #ff0000;
         }
         .social-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
         }
         .social-links p {
             background: rgba(42, 0, 79, 0.6); /* Dark purple */
-            padding: 12px 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ff99cc; /* Light pink */
-            font-size: 1.2em;
-            flex: 1 1 300px;
-            max-width: 400px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px #ff99cc; /* Light pink */
+            font-size: 1.1em;
+            flex: 1 1 280px;
+            max-width: 350px; /* Adjusted for balance */
         }
         a {
             color: #ff99cc; /* Light pink */
@@ -181,12 +183,13 @@
             text-shadow: 0 0 10px #fff;
         }
         footer {
-            padding: 20px;
-            border-top: 3px solid #ff99cc; /* Light pink */
+            padding: 20px 0;
+            border-top: 2px solid #ff99cc; /* Light pink */
             margin-top: 40px;
+            background: rgba(0, 0, 0, 0.8); /* Subtle black */
         }
         footer p {
-            font-size: 1.1em;
+            font-size: 1em;
             text-shadow: 0 0 5px #fff; /* White */
         }
     </style>
@@ -214,11 +217,11 @@
                 </div>
                 <div class="roadmap-item">
                     <strong>Q3 2025: Referral Rumble</strong>
-                    <p>Recruit your crew, snag epic rewards – the contest is ON!</p>
+                    <p>Recruit your crew, snag epic rewards – contest ON!</p>
                 </div>
                 <div class="roadmap-item">
                     <strong>Q4 2025: Galactic Alliances</strong>
-                    <p>Partnering with the hottest names in the galaxy.</p>
+                    <p>Partnering with galaxy-class names.</p>
                 </div>
                 <div class="roadmap-item">
                     <strong>Q1 2026: Staking Power</strong>
@@ -226,7 +229,7 @@
                 </div>
                 <div class="roadmap-item">
                     <strong>Q2 2026: Holo-Realm</strong>
-                    <p>Blondie’s metaverse lounge – VIPs rule the stars!</p>
+                    <p>Blondie’s metaverse lounge – VIPs rule!</p>
                 </div>
             </div>
         </section>
