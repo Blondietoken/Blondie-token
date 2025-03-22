@@ -28,16 +28,22 @@
             opacity: 0.7;
             z-index: -1;
         }
+        .header-img {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 0 15px #ff0000; /* Red glow */
+        }
         h1 {
             font-size: 3em;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: #00eaff; /* Neon blue */
             text-shadow: 0 0 15px #00eaff;
-            margin: 40px 0 20px;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.8); /* Black semi-transparent */
+            margin: 20px 0;
             border-bottom: 2px solid #ff0000; /* Red */
+            padding-bottom: 10px;
         }
         p {
             font-size: 1.4em;
@@ -88,27 +94,47 @@
             border: 1px solid #fff; /* White */
         }
         #roadmap {
-            background: rgba(0, 0, 0, 0.6); /* Black */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px #00eaff; /* Neon blue */
-            border: 1px solid #00eaff;
+            background: rgba(0, 0, 0, 0.8); /* Black, slightly darker */
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #00eaff; /* Neon blue */
+            border: 2px dashed #00eaff; /* Neon blue dashed */
         }
-        ul {
-            list-style: none;
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             padding: 0;
         }
-        li {
+        .roadmap-item {
+            position: relative;
             font-size: 1.2em;
-            margin: 10px 0;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.2); /* White */
-            border-radius: 8px;
-            box-shadow: 0 0 10px #ff0000; /* Red */
-            transition: transform 0.3s;
+            padding: 20px;
+            background: linear-gradient(45deg, #2a004f, #000); /* Dark purple to black */
+            border-radius: 10px;
+            box-shadow: 0 0 15px #ff0000; /* Red */
+            transition: transform 0.3s, box-shadow 0.3s;
+            overflow: hidden;
         }
-        li:hover {
-            transform: translateX(5px);
+        .roadmap-item::before {
+            content: '✨';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 1.5em;
+            color: #ff99cc; /* Light pink */
+            text-shadow: 0 0 5px #ff99cc;
+        }
+        .roadmap-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px #ff99cc; /* Light pink */
+        }
+        .roadmap-item strong {
+            color: #ff99cc; /* Light pink */
+            text-shadow: 0 0 5px #ff99cc;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.3em;
         }
         #socials {
             background: rgba(0, 0, 0, 0.6); /* Black */
@@ -147,6 +173,7 @@
 <body>
     <div class="bg-gradient"></div>
     <div class="container">
+        <img src="header-index.png" alt="Blondie Header" class="header-img">
         <h1>Blondie Token 💋<br>Cosmic Glam</h1>
         <p>The slickest token for all you cosmic legends – join the vibe!</p>
         <a href="#roadmap" class="btn">Roadmap</a>
@@ -158,13 +185,28 @@
 
         <section id="roadmap">
             <h2>Roadmap to Infinity</h2>
-            <ul>
-                <li><strong>Q2 2025:</strong> Token Drop – Blondie Token hits the chain!</li>
-                <li><strong>Q3 2025:</strong> Crew Boom – 10K fam & neon NFTs.</li>
-                <li><strong>Q4 2025:</strong> Big Links – Collabs with cosmic stars.</li>
-                <li><strong>Q1 2026:</strong> Staking Vibes – Rewards in Blondie’s vault!</li>
-                <li><strong>Q2 2026:</strong> Meta Slay – Blondie’s VIP holo-pad opens.</li>
-            </ul>
+            <div class="roadmap-grid">
+                <div class="roadmap-item">
+                    <strong>Q2 2025: Token Launch</strong>
+                    Blondie Token drops – ignite the cosmos with us!
+                </div>
+                <div class="roadmap-item">
+                    <strong>Q3 2025: Referral Rumble</strong>
+                    Bring your squad, win epic loot – contest goes live!
+                </div>
+                <div class="roadmap-item">
+                    <strong>Q4 2025: Cosmic Collabs</strong>
+                    Linking up with galaxy-class influencers.
+                </div>
+                <div class="roadmap-item">
+                    <strong>Q1 2026: Staking Vault</strong>
+                    Lock in, cash out – rewards hit hyperspeed!
+                </div>
+                <div class="roadmap-item">
+                    <strong>Q2 2026: Meta Takeover</strong>
+                    Blondie’s holo-lounge – the ultimate VIP zone!
+                </div>
+            </div>
         </section>
 
         <section id="socials">
