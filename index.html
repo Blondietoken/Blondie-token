@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blondie Token – Cosmic Glam</title>
+    <title>Blondie Token – Cosmic Revolution</title>
     <style>
         * {
             margin: 0;
@@ -18,140 +18,158 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        .bg-gradient {
+        .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #2a004f, #ff99cc, #000); /* Dark purple, light pink, black */
-            opacity: 0.7;
+            background: linear-gradient(45deg, #2a004f, #000, #2a004f); /* Dark purple to black */
+            opacity: 0.85;
             z-index: -1;
+        }
+        header {
+            padding: 20px;
+            border-bottom: 3px solid #ff0000; /* Red */
         }
         .header-img {
             width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
+            max-width: 500px;
+            margin: 0 auto;
             display: block;
-            box-shadow: 0 0 15px #ff0000; /* Red glow */
+            box-shadow: 0 0 20px #00eaff; /* Neon blue */
         }
         h1 {
-            font-size: 3em;
+            font-size: 2.8em;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: #00eaff; /* Neon blue */
-            text-shadow: 0 0 15px #00eaff;
-            margin: 20px 0;
-            border-bottom: 2px solid #ff0000; /* Red */
-            padding-bottom: 10px;
-        }
-        p {
-            font-size: 1.4em;
+            text-shadow: 0 0 15px #00eaff, 0 0 30px #00eaff;
             margin: 15px 0;
+        }
+        .intro {
+            padding: 30px 20px;
+            background: rgba(42, 0, 79, 0.7); /* Dark purple */
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 0 20px #ff99cc; /* Light pink */
+        }
+        .intro p {
+            font-size: 1.5em;
             text-shadow: 0 0 5px #fff; /* White */
+            line-height: 1.4;
         }
         .btn {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 15px 30px;
             background: #ff0000; /* Red */
             color: #fff;
             text-decoration: none;
-            border-radius: 25px;
-            font-size: 1.1em;
+            border-radius: 30px;
+            font-size: 1.2em;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin: 10px;
-            box-shadow: 0 0 10px #ff0000;
+            margin: 15px;
+            box-shadow: 0 0 15px #ff0000;
             transition: background 0.3s, box-shadow 0.3s;
         }
         .btn:hover {
             background: #ff99cc; /* Light pink */
-            box-shadow: 0 0 20px #ff99cc;
+            box-shadow: 0 0 25px #ff99cc;
         }
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
         section {
-            margin: 50px 0;
+            margin: 60px 0;
         }
         h2 {
-            font-size: 2em;
+            font-size: 2.2em;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: #00eaff; /* Neon blue */
-            text-shadow: 0 0 10px #00eaff;
-            margin-bottom: 20px;
+            text-shadow: 0 0 15px #00eaff;
+            margin-bottom: 30px;
+            position: relative;
         }
-        .community-text {
-            background: rgba(42, 0, 79, 0.6); /* Dark purple */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px #ff99cc; /* Light pink */
-            margin: 30px auto;
-            max-width: 700px;
-            border: 1px solid #fff; /* White */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 100px;
+            height: 2px;
+            background: #ff0000; /* Red */
+            transform: translateX(-50%);
         }
         #roadmap {
-            background: rgba(0, 0, 0, 0.8); /* Black, slightly darker */
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 0 20px #00eaff; /* Neon blue */
-            border: 2px dashed #00eaff; /* Neon blue dashed */
+            background: rgba(0, 0, 0, 0.9); /* Black */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px #00eaff; /* Neon blue */
+            border: 2px solid #00eaff;
         }
         .roadmap-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 0;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
         .roadmap-item {
             position: relative;
-            font-size: 1.2em;
-            padding: 20px;
-            background: linear-gradient(45deg, #2a004f, #000); /* Dark purple to black */
-            border-radius: 10px;
+            padding: 25px;
+            background: #2a004f; /* Dark purple */
+            border-radius: 12px;
             box-shadow: 0 0 15px #ff0000; /* Red */
             transition: transform 0.3s, box-shadow 0.3s;
-            overflow: hidden;
-        }
-        .roadmap-item::before {
-            content: '✨';
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            font-size: 1.5em;
-            color: #ff99cc; /* Light pink */
-            text-shadow: 0 0 5px #ff99cc;
         }
         .roadmap-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px #ff99cc; /* Light pink */
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px #ff99cc; /* Light pink */
         }
         .roadmap-item strong {
+            font-size: 1.4em;
             color: #ff99cc; /* Light pink */
             text-shadow: 0 0 5px #ff99cc;
             display: block;
-            margin-bottom: 5px;
-            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        .roadmap-item p {
+            font-size: 1.1em;
+            text-shadow: 0 0 5px #fff; /* White */
+        }
+        .roadmap-item::before {
+            content: '🔥';
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.8em;
+            color: #ff0000; /* Red */
+            text-shadow: 0 0 5px #ff0000;
         }
         #socials {
-            background: rgba(0, 0, 0, 0.6); /* Black */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px #ff0000; /* Red */
-            border: 1px solid #ff0000;
+            background: rgba(0, 0, 0, 0.9); /* Black */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px #ff0000; /* Red */
+            border: 2px solid #ff0000;
         }
-        #socials p {
-            background: rgba(255, 255, 255, 0.2); /* White */
-            padding: 10px;
-            margin: 10px auto;
-            border-radius: 8px;
-            max-width: 450px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-links p {
+            background: rgba(42, 0, 79, 0.6); /* Dark purple */
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ff99cc; /* Light pink */
+            font-size: 1.2em;
+            flex: 1 1 300px;
+            max-width: 400px;
         }
         a {
             color: #ff99cc; /* Light pink */
@@ -162,61 +180,68 @@
             color: #fff; /* White */
             text-shadow: 0 0 10px #fff;
         }
-        .footer {
-            font-size: 1em;
+        footer {
+            padding: 20px;
+            border-top: 3px solid #ff99cc; /* Light pink */
             margin-top: 40px;
+        }
+        footer p {
+            font-size: 1.1em;
             text-shadow: 0 0 5px #fff; /* White */
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="bg-gradient"></div>
-    <div class="container">
+    <div class="bg-overlay"></div>
+    <header>
         <img src="header-index.png" alt="Blondie Header" class="header-img">
-        <h1>Blondie Token 💋<br>Cosmic Glam</h1>
-        <p>The slickest token for all you cosmic legends – join the vibe!</p>
-        <a href="#roadmap" class="btn">Roadmap</a>
-        <a href="#socials" class="btn">Squad Up</a>
-
-        <div class="community-text">
-            <p>Hey babes, Blondie’s galaxy is for EVERYONE – not just blondes (though we rock the hair game)! Brunettes, redheads, bald icons – you’re all VIPs here. Join the future’s hottest crew – I’d still slay in a wig, trust! 😘</p>
+        <h1>Blondie Token 💋<br>Cosmic Revolution</h1>
+    </header>
+    <div class="container">
+        <div class="intro">
+            <p>Welcome to Blondie’s universe, babes! This token’s for EVERYONE – blondes, brunettes, rebels, and cosmic kings. We’re here to slay the future – join the revolution! 😘</p>
+            <a href="#roadmap" class="btn">Roadmap</a>
+            <a href="#socials" class="btn">Join Us</a>
         </div>
 
         <section id="roadmap">
-            <h2>Roadmap to Infinity</h2>
+            <h2>Roadmap to the Stars</h2>
             <div class="roadmap-grid">
                 <div class="roadmap-item">
-                    <strong>Q2 2025: Token Launch</strong>
-                    Blondie Token drops – ignite the cosmos with us!
+                    <strong>Q2 2025: Token Blast-Off</strong>
+                    <p>Blondie Token launches – ignite your cosmic journey!</p>
                 </div>
                 <div class="roadmap-item">
                     <strong>Q3 2025: Referral Rumble</strong>
-                    Bring your squad, win epic loot – contest goes live!
+                    <p>Recruit your crew, snag epic rewards – the contest is ON!</p>
                 </div>
                 <div class="roadmap-item">
-                    <strong>Q4 2025: Cosmic Collabs</strong>
-                    Linking up with galaxy-class influencers.
+                    <strong>Q4 2025: Galactic Alliances</strong>
+                    <p>Partnering with the hottest names in the galaxy.</p>
                 </div>
                 <div class="roadmap-item">
-                    <strong>Q1 2026: Staking Vault</strong>
-                    Lock in, cash out – rewards hit hyperspeed!
+                    <strong>Q1 2026: Staking Power</strong>
+                    <p>Stake your tokens, unlock stellar riches!</p>
                 </div>
                 <div class="roadmap-item">
-                    <strong>Q2 2026: Meta Takeover</strong>
-                    Blondie’s holo-lounge – the ultimate VIP zone!
+                    <strong>Q2 2026: Holo-Realm</strong>
+                    <p>Blondie’s metaverse lounge – VIPs rule the stars!</p>
                 </div>
             </div>
         </section>
 
         <section id="socials">
-            <h2>Hyper-Space Hangout</h2>
-            <p>X Crew: <a href="https://x.com/blondietoken">@BlondieToken</a></p>
-            <p>Tele Squad: <a href="https://t.me/blondietoken">BlondieToken Group</a></p>
-            <p>Insta Glow: <a href="https://instagram.com/blondietoken">@BlondieToken</a></p>
+            <h2>Cosmic Connections</h2>
+            <div class="social-links">
+                <p>X Vibes: <a href="https://x.com/blondietoken">@BlondieToken</a></p>
+                <p>Tele Crew: <a href="https://t.me/blondietoken">BlondieToken Group</a></p>
+                <p>Insta Glow: <a href="https://instagram.com/blondietoken">@BlondieToken</a></p>
+            </div>
         </section>
-
-        <p class="footer">Built by Blondie – let’s own the future, babes! 😘</p>
     </div>
+    <footer>
+        <p>Powered by Blondie – the future’s ours, babes! 💋</p>
+    </footer>
 </body>
 </html>
