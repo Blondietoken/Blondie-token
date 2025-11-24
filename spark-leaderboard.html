@@ -1,1 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blondie Token Spark Points Leaderboard – Invite friends, complete tasks, win $2000 in Blondie Tokens!">
+    <title>Blondie Token – Spark Points Leaderboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(45deg, #2a004f, #000, #2a004f);
+        }
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(42,0,79,0.9), rgba(0,0,0,0.95));
+            z-index: -1;
+        }
 
+        /* Sama navbar kuin alkuperäisellä sivulla */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid #ff0000;
+            z-index: 9999;
+            padding: 1rem 0;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #00eaff;
+            text-shadow: 0 0 15px #00eaff;
+            text-decoration: none;
+        }
+        .nav-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            margin: 0 1.5rem;
+            position: relative;
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #ff0000;
+            transition: all 0.4s;
+            transform: translateX(-50%);
+        }
+        .nav-menu a:hover { color: #00eaff; text-shadow: 0 0 10px #00eaff; }
+        .nav-menu a:hover::after { width: 100%; }
+
+        .container {
+            max-width: 1100px;
+            margin: 120px auto 50px;
+            padding: 0 20px;
+        }
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            color: #00eaff;
+            text-shadow: 0 0 20px #00eaff;
+            margin-bottom: 20px;
+        }
+        .prize {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #ff99cc;
+            text-shadow: 0 0 15px #ff99cc;
+            margin: 30px 0;
+        }
+        .countdown {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #fff;
+            background: rgba(255,0,0,0.3);
+            padding: 15px;
+            border-radius: 15px;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .spark-box {
+            background: rgba(42, 0, 79, 0.85);
+            border: 2px solid #00eaff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 0 30px #ff99cc;
+        }
+        .referral-section {
+            text-align: center;
+            background: rgba(0,0,0,0.7);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px dashed #ff0000;
+            margin: 40px 0;
+        }
+        .referral-link {
+            background: #000;
+            color: #00eaff;
+            padding: 15px 25px;
+            border: 2px solid #00eaff;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            margin: 20px auto;
+            display: inline-block;
+            max-width: 90%;
+            word-wrap: break-word;
+            text-shadow: 0 0 10px #00eaff;
+        }
+        .copy-btn {
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            margin-top: 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .copy-btn:hover { background: #ff3366; }
+
+        .tasks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 50px 0;
+        }
+        .task {
+            background: rgba(0,0,0,0.7);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #ff99cc;
+            transition: all 0.3s;
+        }
+        .task:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px #ff99cc;
+        }
+        .task h3 {
+            color: #00eaff;
+            margin-bottom: 10px;
+        }
+        .points {
+            color: #ff99cc;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .leaderboard {
+            background: rgba(0,0,0,0.85);
+            border: 2px solid #00eaff;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 50px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: #2a004f;
+            padding: 20px;
+            color: #00eaff;
+            text-shadow: 0 0 10px #00eaff;
+        }
+        td {
+            padding: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+        tr:nth-child(1) td { background: rgba(255,215,0,0.2); font-size: 1.3rem; }
+        tr:nth-child(2) td { background: rgba(192,192,192,0.2); }
+        tr:nth-child(3) td { background: rgba(205,127,50,0.2); }
+
+        .wallet-input {
+            width: 100%;
+            padding: 15px;
+            margin: 30px 0;
+            background: #000;
+            border: 2px solid #00eaff;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .referral-link { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-overlay"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="https://blondietoken.github.io/Blondie-token/" class="logo">Blondie Token</a>
+            <div class="nav-menu">
+                <a href="#leaderboard">Leaderboard</a>
+                <a href="#tasks">Tasks</a>
+                <a href="#referral">Invite</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>✦ Spark Points Leaderboard ✦</h1>
+        <div class="prize">TOTAL PRIZE POOL: $2000 in Blondie Tokens</div>
+        <div class="countdown" id="countdown">Contest ends in: <span id="timer">Loading...</span></div>
+
+        <!-- Referral Section -->
+        <div class="referral-section" id="referral">
+            <h2 style="color:#ff99cc;">Your Unique Referral Link</h2>
+            <div class="referral-link" id="refLink">
+                https://blondietoken.github.io/spark/?ref=blondie123abc
+            </div>
+            <button class="copy-btn" onclick="copyRef()">Copy Link</button>
+            <p style="margin-top:20px;">Every friend who signs up with your link = <strong>500 Spark Points</strong> for you!</p>
+        </div>
+
+        <!-- Tasks -->
+        <div class="spark-box" id="tasks">
+            <h2 style="color:#00eaff; text-align:center; margin-bottom:30px;">Earn Spark Points – How It Works</h2>
+            <div class="tasks">
+                <div class="task">
+                    <h3>Follow @blondietoken on X</h3>
+                    <p class="points">+100 ✦</p>
+                </div>
+                <div class="task">
+                    <h3>Join Telegram Group</h3>
+                    <p class="points">+150 ✦</p>
+                </div>
+                <div class="task">
+                    <h3>Retweet Pinned Post</h3>
+                    <p class="points">+200 ✦</p>
+                </div>
+                <div class="task">
+                    <h3>Post with #BlondieToken</h3>
+                    <p class="points">+300 ✦</p>
+                </div>
+                <div class="task">
+                    <h3>Invite 1 Friend (who joins)</h3>
+                    <p class="points">+500 ✦</p>
+                </div>
+                <div class="task">
+                    <h3>Invite 5 Friends</h3>
+                    <p class="points">+3000 ✦ Bonus!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="leaderboard" id="leaderboard">
+            <h2 style="text-align:center; padding:20px; background:#2a004f; color:#00eaff;">Top 20 Cosmic Slayers</h2>
+            <table>
+                <tr><th>Rank</th><th>Username / Wallet</th><th>Spark Points ✦</th></tr>
+                <tr><td>1</td><td>0xblondiequeen...69</td><td>48,720</td></tr>
+                <tr><td>2</td><td>cosmicbabe420</td><td>39,150</td></tr>
+                <tr><td>3</td><td>neonrebel_x</td><td>31,800</td></tr>
+                <tr><td>4</td><td>sparkslayer99</td><td>28,400</td></tr>
+                <tr><td>5</td><td>blondiearmy1</td><td>25,990</td></tr>
+                <tr><td>6</td><td>0xPurpleDream...ff</td><td>22,100</td></tr>
+                <tr><td>7</td><td>invitemaster</td><td>19,850</td></tr>
+                <tr><td>8</td><td>crypto_bae</td><td>18,300</td></tr>
+                <tr><td>9</td><td>redhotreferral</td><td>16,700</td></tr>
+                <tr><td>10</td><td>neonvibesonly</td><td>15,200</td></tr>
+                <!-- Jatkuu top 20 asti... -->
+            </table>
+        </div>
+
+        <div class="spark-box" style="margin-top:50px; text-align:center;">
+            <p>Submit your wallet to claim prizes at the end (BEP-20 / ERC-20)</p>
+            <input type="text" class="wallet-input" placeholder="Enter your wallet address here..." id="wallet">
+            <button class="copy-btn" onclick="alert('Wallet saved! Winners announced on X & Telegram')">Save Wallet</button>
+        </div>
+    </div>
+
+    <script>
+        // Countdown (esim. 30 päivää)
+        const countDownDate = new Date("Jan 1, 2026 00:00:00").getTime();
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m ";
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "CONTEST ENDED";
+            }
+        }, 1000);
+
+        // Copy referral link
+        function copyRef() {
+            const link = document.getElementById("refLink");
+            navigator.clipboard.writeText(link.innerText);
+            alert("Referral link copied! Share it everywhere 🔥");
+        }
+
+        // Dynaaminen ref-link URL-parametrilla (tulee toimimaan kun lisäät backendin tai localStoragen)
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+        if (ref) {
+            document.getElementById("refLink").innerText = window.location.href.split('?')[0] + "?ref=" + ref;
+        }
+    </script>
+</body>
+</html>
