@@ -39,10 +39,6 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
-            transition: overflow 0.3s;
-        }
-        body.no-scroll {
-            overflow: hidden;
         }
         .bg-overlay {
             position: fixed;
@@ -53,44 +49,43 @@
             z-index: -1;
         }
 
-        /* YLÄPALKKI – NYT SELKEÄSTI EROTETTU */
+        /* KIINTEÄ YLÄVALIKKO */
         .navbar {
             position: fixed;
-            top: 0; left: 0; right: 0;
-            background: rgba(0, 0, 0, 0.95);
+            top: 0; left: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(12px);
             border-bottom: 2px solid #ff0000;
             z-index: 9999;
-            padding: 1.2rem 20px;
+            padding: 1rem 0;
         }
         .nav-container {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
         }
         .logo {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #00eaff;
-            text-shadow: 0 0 20px #00eaff;
+            text-shadow: 0 0 15px #00eaff;
             text-decoration: none;
-            letter-spacing: 2px;
-            min-width: 220px; /* estää törmäämisen */
         }
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 3rem;
+            gap: 2.5rem;
             align-items: center;
         }
         .nav-menu a {
             color: #fff;
             text-decoration: none;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 1.8px;
+            letter-spacing: 1.5px;
             position: relative;
             transition: all 0.3s;
         }
@@ -107,29 +102,32 @@
         }
         .nav-menu a:hover {
             color: #00eaff;
-            text-shadow: 0 0 12px #00eaff;
+            text-shadow: 0 0 10px #00eaff;
         }
         .nav-menu a:hover::after { width: 100%; }
 
-        /* PUNAINEN COMING SOON */
-        .nav-item { position: relative; display: inline-block; }
+        /* COMING SOON */
+        .nav-item {
+            position: relative;
+            display: inline-block;
+        }
         .coming-soon-overlay {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) rotate(-28deg);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #ff0066;
-            text-shadow: 0 0 15px #ff0000, 0 0 25px #000;
+            color: rgba(170, 170, 170, 0.9);
+            text-shadow: 2px 2px 10px #000;
             pointer-events: none;
             white-space: nowrap;
             z-index: 2;
-            letter-spacing: 5px;
+            letter-spacing: 4px;
         }
         .coming-soon-item {
-            color: #ff3366 !important;
-            opacity: 0.6;
+            color: #aaaaaa !important;
+            opacity: 0.7;
             cursor: not-allowed;
             pointer-events: none;
         }
@@ -141,64 +139,66 @@
             cursor: pointer;
             flex-direction: column;
             gap: 6px;
-            z-index: 10000;
         }
         .hamburger span {
-            width: 35px;
+            width: 32px;
             height: 4px;
             background: #00eaff;
             border-radius: 4px;
-            box-shadow: 0 0 12px #00eaff;
-            transition: 0.4s;
+            box-shadow: 0 0 10px #00eaff;
+            transition: 0.3s;
         }
         .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(10px, 10px); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(10px, -10px); }
 
-        /* SISÄLTÖ */
+        /* PÄÄSISÄLTÖ */
         .main-content {
-            margin-top: 100px;
+            margin-top: 90px;
             padding: 0 15px;
         }
-        header { padding: 40px 0 20px; }
+        header {
+            padding: 30px 0 20px;
+        }
         .header-img {
             width: 90%;
-            max-width: 460px;
+            max-width: 420px;
             margin: 20px auto;
             display: block;
-            box-shadow: 0 0 30px #00eaff;
-            border-radius: 18px;
+            box-shadow: 0 0 25px #00eaff;
+            border-radius: 15px;
         }
         h1 {
-            font-size: 2.6rem;
+            font-size: 2.4em;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: #00eaff;
-            text-shadow: 0 0 20px #00eaff;
+            text-shadow: 0 0 15px #00eaff;
             margin: 20px 0;
         }
 
         .intro, #roadmap, #socials {
             margin: 70px auto;
             max-width: 900px;
+            width: 100%;
             padding: 40px 30px;
             border-radius: 20px;
         }
         .intro {
             background: rgba(42, 0, 79, 0.75);
-            box-shadow: 0 0 35px #ff99cc;
+            box-shadow: 0 0 30px #ff99cc;
         }
         #roadmap, #socials {
             background: rgba(0, 0, 0, 0.92);
-            box-shadow: 0 0 35px #00eaff;
+            box-shadow: 0 0 30px #00eaff;
             border: 2px solid #00eaff;
         }
 
         h2 {
-            font-size: 2.1rem;
+            font-size: 2em;
             color: #00eaff;
-            text-shadow: 0 0 15px #00eaff;
-            margin-bottom: 35px;
+            text-shadow: 0 0 12px #00eaff;
+            margin-bottom: 30px;
             position: relative;
         }
         h2::after {
@@ -206,32 +206,37 @@
             position: absolute;
             bottom: -12px;
             left: 50%;
-            width: 120px;
+            width: 100px;
             height: 4px;
             background: #ff0000;
             transform: translateX(-50%);
         }
+        h3 {
+            font-size: 1.6em;
+            color: #ff99cc;
+            text-shadow: 0 0 8px #ff99cc;
+            margin: 30px 0 15px;
+        }
+        p { margin-bottom: 1.4em; }
 
-        /* Ei enää päällekkäisiä tekstejä */
         .intro ul {
             list-style: none;
             text-align: left;
-            max-width: 750px;
+            max-width: 720px;
             margin: 30px auto;
         }
         .intro ul li {
-            padding-left: 40px;
+            padding-left: 35px;
             position: relative;
-            margin: 22px 0;
+            margin: 18px 0;
             font-size: 1.15em;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         .intro ul li::before {
-            content: "Sparkles";
-            color: #ff99cc;
+            content: "✦";
             position: absolute;
             left: 0;
-            font-size: 1.5em;
+            color: #ff99cc;
         }
 
         .roadmap-grid {
@@ -240,23 +245,26 @@
             gap: 30px;
             margin-top: 40px;
         }
-        @media (min-width: 640px) { .roadmap-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .roadmap-grid { grid-template-columns: repeat(4, 1fr); } }
-
+        @media (min-width: 640px) {
+            .roadmap-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .roadmap-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        }
         .roadmap-item {
             padding: 28px;
             background: #2a004f;
-            border-radius: 18px;
-            box-shadow: 0 0 25px #ff0000;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #ff0000;
             transition: all 0.4s;
         }
         .roadmap-item:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 0 40px #ff99cc;
+            transform: translateY(-10px);
+            box-shadow: 0 0 35px #ff99cc;
         }
         .roadmap-item strong {
             color: #ff99cc;
-            font-size: 1.35em;
+            font-size: 1.3em;
             display: block;
             margin-bottom: 12px;
         }
@@ -269,74 +277,92 @@
         }
         .social-links p {
             background: rgba(42, 0, 79, 0.7);
-            padding: 25px;
-            border-radius: 18px;
-            box-shadow: 0 0 25px #ff99cc;
-            font-size: 1.3em;
+            padding: 22px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px #ff99cc;
+            font-size: 1.2em;
+        }
+        .social-links a {
+            color: #00eaff;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            text-shadow: 0 0 10px #00eaff;
         }
         @media (min-width: 640px) {
-            .social-links { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-            .social-links p { flex: 1 1 300px; max-width: 420px; }
+            .social-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .social-links p {
+                flex: 1 1 300px;
+                max-width: 420px;
+                margin: 0 15px;
+            }
         }
 
         footer {
             padding: 60px 20px;
-            border-top: 3px solid #ff99cc;
-            background: rgba(0,0,0,0.95);
+            border-top: 2px solid #ff99cc;
+            background: rgba(0,0,0,0.9);
             margin-top: 100px;
-            font-size: 1.2em;
+            font-size: 1.1em;
         }
 
-        /* MOBIILI – EI ENÄÄ SCROLLAUSTA KUN VALIKKO AUKI */
+        /* MOBIILI */
         @media (max-width: 900px) {
             .hamburger { display: flex; }
-
             .nav-menu {
                 position: fixed;
-                top: 0;
+                top: 78px;
                 left: -100%;
                 width: 100%;
-                height: 100vh;
+                height: calc(100vh - 78px);
                 background: rgba(0, 0, 0, 0.98);
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
-                transition: left 0.5s ease;
-                padding-top: 0;
-                gap: 4.5rem;
-                z-index: 9998;
+                padding-top: 5rem;
+                transition: left 0.4s ease;
+                gap: 3.5rem;
             }
             .nav-menu.active { left: 0; }
-
-            .nav-menu a, .nav-item {
-                font-size: 2.2rem;
-                font-weight: 700;
-            }
-            .coming-soon-overlay {
-                font-size: 2.8rem;
-                letter-spacing: 8px;
-            }
-            .logo { font-size: 1.9rem; }
-            h1 { font-size: 2.2rem; }
+            .nav-menu a, .nav-item { font-size: 1.8rem; }
+            .coming-soon-overlay { font-size: 2.2rem; letter-spacing: 6px; }
+            h1 { font-size: 2em; }
+            .intro, #roadmap, #socials { padding: 35px 20px; margin: 50px auto; }
         }
     </style>
 </head>
 <body>
     <div class="bg-overlay"></div>
 
+    <!-- YLÄVALIKKO -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">Blondie Token</a>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="https://qh5aza-kw.myshopify.com/products/nimeton-24-marrask-_2-32?utm_campaign=share_orders&utm_content=android&utm_medium=product-links" target="_blank">Shop</a></li>
-                <li class="nav-item"><a href="#" class="coming-soon-item">Miner</a><div class="coming-soon-overlay">COMING SOON</div></li>
-                <li class="nav-item"><a href="#" class="coming-soon-item">Profile</a><div class="coming-soon-overlay">COMING SOON</div></li>
+                
+                <li class="nav-item">
+                    <a href="#" class="coming-soon-item">Miner</a>
+                    <div class="coming-soon-overlay">COMING SOON</div>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#" class="coming-soon-item">Profile</a>
+                    <div class="coming-soon-overlay">COMING SOON</div>
+                </li>
+                
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#socials">Socials</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
@@ -350,13 +376,10 @@
         <div class="intro">
             <h2>What’s Blondie Token All About?</h2>
             <p>Hey babes! Welcome to the cosmic chaos of Blondie Token – my little rebellion against the boring crypto grind. This isn’t just another coin; it’s a vibe, a community, and a ticket to something epic. I’m Blondie, and this is what we’re building together.</p>
-            
             <h3>The Basics</h3>
-            <p>Blondie Token is a cryptocurrency dropping in <strong>Q4 2025</strong> (October-December, mark your calendars!). It’s built for <em>everyone</em>—blondes, brunettes, rebels, dreamers, you name it. No suits, no stuffy vibes—just pure, unfiltered fun with a purpose.</p>
-            
+            <p>Blondie Token is a cryptocurrency dropping in <strong>Q4 2025</strong> (October-December, mark your calendars!). It’s built for <em>everyone</em>—blondes, brunettes, rebels, dreamers, you name it. No suits, no stuffy vibes—just pure, unfiltered fun with a purpose. We’re cooking it on a solid blockchain (details soon!), and it’s gonna power a whole ecosystem of rewards and experiences.</p>
             <h3>Why Blondie Token?</h3>
-            <p>Crypto can feel like a boys’ club, right? I’m here to flip that script. Blondie Token’s about breaking molds, having a laugh, and making gains on <em>our</em> terms. It’s personal—my heart’s in this, and I’m here chatting with you on X (@blondietoken) every day.</p>
-            
+            <p>Crypto can feel like a boys’ club, right? I’m here to flip that script. Blondie Token’s about breaking molds, having a laugh, and making gains on <em>our</em> terms. It’s personal—my heart’s in this, and I’m here chatting with you on X (@blondietoken) every day. We’re growing fast and buzzing with energy!</p>
             <h3>The Big Plan</h3>
             <p>Here’s the roadmap to our starry future:</p>
             <ul>
@@ -365,7 +388,6 @@
                 <li><strong>Q2 2026 – Marketing & Expansion:</strong> Big campaigns on Reddit and YouTube, community votes on NFT designs, and 50% of sales boosting marketing.</li>
                 <li><strong>Q3 2026 onward – Long-Term Sustainability:</strong> Aiming for 10k+ community members, new NFT drops, DeFi integrations, and staking rewards.</li>
             </ul>
-            
             <h3>The Token Lowdown</h3>
             <p>Tokenomics are still baking (whitepaper’s on the way!), but expect:</p>
             <ul>
@@ -373,18 +395,29 @@
                 <li>Real uses: staking, metaverse access, and more surprises.</li>
             </ul>
             <p>We’re pre-launch, so no buying yet—just hype and heart for now.</p>
-            
             <h3>Why It’s Special</h3>
-            <p>Blondie Token’s got soul. It’s not some faceless project—it’s <em>me</em>, Blondie, bringing the sass and the vision. Stick around, and let’s slay the future together!</p>
+            <p>Blondie Token’s got soul. It’s not some faceless project—it’s <em>me</em>, Blondie, bringing the sass and the vision. It’s for anyone who’s ever felt like an outsider in crypto. Transparent, loud, and a little flirty—that’s us. Stick around, and let’s slay the future together!</p>
         </div>
 
         <section id="roadmap">
             <h2>Roadmap to the Stars</h2>
             <div class="roadmap-grid">
-                <div class="roadmap-item"><strong>Phase 1: Launch (Q4 2025)</strong><p>NFT collection hits marketplaces like OpenSea, with teasers, AMAs, and airdrops for the first 500 Telegram members.</p></div>
-                <div class="roadmap-item"><strong>Phase 2: Community Growth (Q1 2026)</strong><p>Weekly giveaways, exclusive NFT holder meetups, and a referral program to earn BlondieToken rewards.</p></div>
-                <div class="roadmap-item"><strong>Phase 3: Marketing & Expansion (Q2 2026)</strong><p>Big campaigns on Reddit and YouTube, community votes on NFT designs, and 50% of sales boosting marketing.</p></div>
-                <div class="roadmap-item"><strong>Phase 4: Long-Term Sustainability (Q3 2026+)</strong><p>Target 10k+ community members, new NFT drops, DeFi integrations, and staking rewards for cosmic riches!</p></div>
+                <div class="roadmap-item">
+                    <strong>Phase 1: Launch (Q4 2025)</strong>
+                    <p>NFT collection hits marketplaces like OpenSea, with teasers, AMAs, and airdrops for the first 500 Telegram members.</p>
+                </div>
+                <div class="roadmap-item">
+                    <strong>Phase 2: Community Growth (Q1 2026)</strong>
+                    <p>Weekly giveaways, exclusive NFT holder meetups, and a referral program to earn BlondieToken rewards.</p>
+                </div>
+                <div class="roadmap-item">
+                    <strong>Phase 3: Marketing & Expansion (Q2 2026)</strong>
+                    <p>Big campaigns on Reddit and YouTube, community votes on NFT designs, and 50% of sales boosting marketing.</p>
+                </div>
+                <div class="roadmap-item">
+                    <strong>Phase 4: Long-Term Sustainability (Q3 2026 onward)</strong>
+                    <p>Target 10k+ community members, new NFT drops, DeFi integrations, and staking rewards for cosmic riches!</p>
+                </div>
             </div>
         </section>
 
@@ -405,20 +438,16 @@
     <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
-        const body = document.body;
 
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
-            body.classList.toggle('no-scroll');
         });
 
-        // Sulje valikko kun klikataan linkkiä
         document.querySelectorAll('.nav-menu a:not(.coming-soon-item)').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
-                body.classList.remove('no-scroll');
             });
         });
     </script>
