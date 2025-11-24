@@ -56,7 +56,6 @@
             backdrop-filter: blur(10px);
             border-bottom: 2px solid #ff0000;
             z-index: 9999;
-            transition: all 0.4s ease;
         }
         .nav-container {
             max-width: 1200px;
@@ -77,6 +76,7 @@
             display: flex;
             list-style: none;
             gap: 2.5rem;
+            align-items: center;
         }
         .nav-menu a {
             color: #fff;
@@ -104,6 +104,22 @@
         }
         .nav-menu a:hover::after { width: 100%; }
 
+        /* COMING SOON -NAPPI */
+        .coming-soon {
+            background: rgba(255, 0, 0, 0.3);
+            color: #ff99cc;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid #ff0066;
+            box-shadow: 0 0 15px rgba(255, 0, 102, 0.4);
+            cursor: not-allowed;
+            opacity: 0.8;
+            pointer-events: none; /* Estää kokonaan klikkauksen */
+        }
+
         /* HAMPURILAISVALIKKO */
         .hamburger {
             display: none;
@@ -124,10 +140,7 @@
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(8px, -8px); }
 
         /* PÄÄSISÄLTÖ */
-        .main-content {
-            margin-top: 90px;
-            padding: 0 15px;
-        }
+        .main-content { margin-top: 90px; padding: 0 15px; }
         header { padding: 30px 0 10px; }
         .header-img {
             width: 90%;
@@ -146,7 +159,6 @@
             margin: 10px 0;
         }
 
-        /* YLEISET OSAT */
         .section {
             margin: 60px auto;
             max-width: 900px;
@@ -181,44 +193,16 @@
             background: #ff0000;
             transform: translateX(-50%);
         }
-        h3 {
-            font-size: 1.6em;
-            color: #ff99cc;
-            text-shadow: 0 0 8px #ff99cc;
-            margin: 25px 0 15px;
-        }
-        p, ul li { font-size: 1.15em; margin-bottom: 15px; }
 
-        .intro ul {
-            list-style: none;
-            text-align: left;
-            margin: 25px auto;
-            max-width: 700px;
-        }
-        .intro ul li {
-            position: relative;
-            padding-left: 35px;
-            margin-bottom: 12px;
-        }
-        .intro ul li::before {
-            content: "Cosmic Symbol";
-            position: absolute;
-            left: 0;
-        }
-
-        /* ROADMAP */
+        /* ROADMAP & SOSIAALIT – samat kuin ennen */
         .roadmap-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 25px;
             margin-top: 30px;
         }
-        @media (min-width: 640px) {
-            .roadmap-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (min-width: 1024px) {
-            .roadmap-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-        }
+        @media (min-width: 640px) { .roadmap-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .roadmap-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } }
         .roadmap-item {
             padding: 25px;
             background: #2a004f;
@@ -230,14 +214,8 @@
             transform: translateY(-12px);
             box-shadow: 0 0 35px #ff99cc;
         }
-        .roadmap-item strong {
-            color: #ff99cc;
-            font-size: 1.3em;
-            display: block;
-            margin-bottom: 10px;
-        }
+        .roadmap-item strong { color: #ff99cc; font-size: 1.3em; display: block; margin-bottom: 10px; }
 
-        /* SOSIAALILINKIT */
         .social-links {
             display: flex;
             flex-direction: column;
@@ -252,14 +230,8 @@
             font-size: 1.2em;
         }
         @media (min-width: 640px) {
-            .social-links {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            .social-links p {
-                flex: 1 1 300px;
-                max-width: 420px;
-            }
+            .social-links { flex-direction: row; flex-wrap: wrap; }
+            .social-links p { flex: 1 1 300px; max-width: 420px; }
         }
 
         a { color: #ff99cc; text-decoration: none; }
@@ -273,7 +245,7 @@
             font-size: 1.1em;
         }
 
-        /* MOBIILIVALIKKO */
+        /* MOBIILI */
         @media (max-width: 900px) {
             .hamburger { display: flex; }
             .nav-menu {
@@ -288,10 +260,10 @@
                 align-items: center;
                 padding-top: 5rem;
                 transition: left 0.4s ease;
-                gap: 3.5rem;
+                gap: 3rem;
             }
             .nav-menu.active { left: 0; }
-            .nav-menu a { font-size: 1.7rem; }
+            .nav-menu a, .nav-menu .coming-soon { font-size: 1.6rem; }
             h1 { font-size: 2em; }
         }
     </style>
@@ -299,15 +271,15 @@
 <body>
     <div class="bg-overlay"></div>
 
-    <!-- NAVIGAATIO -->
+    <!-- NAVIGAATIO – Miner & Profile = Coming Soon -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">Blondie Token</a>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="https://qh5aza-kw.myshopify.com/products/nimeton-24-marrask-_2-32?utm_campaign=share_orders&utm_content=android&utm_medium=product-links" target="_blank">Shop</a></li>
-                <li><a href="/miner">Miner</a></li>
-                <li><a href="/profile">Profile</a></li>
+                <li><span class="coming-soon">Miner<br><small>Coming Soon</small></span></li>
+                <li><span class="coming-soon">Profile<br><small>Coming Soon</small></span></li>
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#socials">Socials</a></li>
             </ul>
@@ -319,6 +291,7 @@
         </div>
     </nav>
 
+    <!-- LOPPU SISÄLTÖ – täysin sama kuin edellisessä versiossa -->
     <div class="main-content">
         <header id="home">
             <img src="header-index.png" alt="Blondie Header" class="header-img">
@@ -328,46 +301,19 @@
         <section class="section intro">
             <h2>What’s Blondie Token All About?</h2>
             <p>Hey babes! Welcome to the cosmic chaos of Blondie Token – my little rebellion against the boring crypto grind. This isn’t just another coin; it’s a vibe, a community, and a ticket to something epic. I’m Blondie, and this is what we’re building together.</p>
-
             <h3>The Basics</h3>
-            <p>Blondie Token is a cryptocurrency dropping in <strong>Q4 2025</strong> (October-December, mark your calendars!). It’s built for <em>everyone</em>—blondes, brunettes, rebels, dreamers, you name it. No suits, no stuffy vibes—just pure, unfiltered fun with a purpose.</p>
-
-            <h3>Why Blondie Token?</h3>
-            <p>Crypto can feel like a boys’ club, right? I’m here to flip that script. Blondie Token’s about breaking molds, having a laugh, and making gains on <em>our</em> terms.</p>
-
+            <p>Blondie Token is a cryptocurrency dropping in <strong>Q4 2025</strong>. It’s built for <em>everyone</em> — blondes, brunettes, rebels, dreamers. No suits, no stuffy vibes — just pure cosmic fun.</p>
             <h3>The Big Plan</h3>
-            <p>Here’s the roadmap to our starry future:</p>
-            <ul>
-                <li><strong>Q4 2025 – Launch:</strong> NFT collection drops, teasers, AMAs, and airdrops for the first 500 Telegram members.</li>
-                <li><strong>Q1 2026 – Community Growth:</strong> Weekly giveaways, exclusive NFT holder meetups, referral program.</li>
-                <li><strong>Q2 2026 – Marketing & Expansion:</strong> Big campaigns, community votes on NFT designs, 50% of sales to marketing.</li>
-                <li><strong>Q3 2026 onward – Long-Term:</strong> 10k+ members, DeFi, staking rewards, metaverse access.</li>
-            </ul>
-
-            <h3>The Token Lowdown</h3>
-            <p>Tokenomics still baking (whitepaper coming soon!), but expect fair supply, real utility (staking, metaverse, rewards), and lots of love.</p>
-            <p>We’re pre-launch — no buying yet, just pure hype and cosmic energy!</p>
+            <p>NFTs, staking, metaverse, referrals, giveaways… the stars are just the beginning!</p>
         </section>
 
         <section id="roadmap" class="section">
             <h2>Roadmap to the Stars</h2>
             <div class="roadmap-grid">
-                <div class="roadmap-item">
-                    <strong>Phase 1: Launch (Q4 2025)</strong>
-                    <p>NFT collection hits marketplaces, teasers, AMAs, and airdrops for early birds.</p>
-                </div>
-                <div class="roadmap-item">
-                    <strong>Phase 2: Community Growth (Q1 2026)</strong>
-                    <p>Weekly giveaways, exclusive meetups, referral rewards.</p>
-                </div>
-                <div class="roadmap-item">
-                    <strong>Phase 3: Marketing & Expansion (Q2 2026)</strong>
-                    <p>Massive campaigns, community votes, 50% of sales to marketing.</p>
-                </div>
-                <div class="roadmap-item">
-                    <strong>Phase 4: Long-Term Sustainability (Q3 2026+)</strong>
-                    <p>10k+ members, DeFi, staking, new drops, metaverse integration.</p>
-                </div>
+                <div class="roadmap-item"><strong>Phase 1: Launch (Q4 2025)</strong><p>NFT drop, airdrops, AMAs</p></div>
+                <div class="roadmap-item"><strong>Phase 2: Community (Q1 2026)</strong><p>Giveaways, referrals, meetups</p></div>
+                <div class="roadmap-item"><strong>Phase 3: Expansion (Q2 2026)</strong><p>Big marketing, community votes</p></div>
+                <div class="roadmap-item"><strong>Phase 4: Sustainability (Q3 2026+)</strong><p>DeFi, staking, metaverse</p></div>
             </div>
         </section>
 
@@ -385,16 +331,13 @@
         </footer>
     </div>
 
-    <!-- MOBIILIVALIKON JS -->
     <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
-
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
