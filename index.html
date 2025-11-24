@@ -1,32 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blondie Token – Crypto with dark purple vibes, neon blue dreams, and red-hot rewards. Join the cosmic revolution now!">
-    <meta name="keywords" content="Blondie Token, cryptocurrency, crypto, blockchain, referral contest, staking, metaverse">
-    <meta name="author" content="Blondie">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Blondie Token – Cosmic Revolution">
-    <meta property="og:description" content="Hey babes! With love and cosmic energy – Blondie Token is coming Q4 2025!">
-    <meta property="og:image" content="https://blondietoken.github.io/Blondie-token/header-index.png">
-    <meta property="og:url" content="https://blondietoken.github.io/Blondie-token/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Blondie Token – Cosmic Revolution">
-    <meta name="twitter:description" content="Hey babes! With love and cosmic energy – Blondie Token is coming Q4 2025!">
-    <meta name="twitter:image" content="https://blondietoken.github.io/Blondie-token/header-index.png">
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y17SSM7PQ1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-Y17SSM7PQ1');
-    </script>
-    <title>Blondie Token – Cosmic Revolution</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- ... kaikki head samana ... -->
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -46,17 +21,14 @@
             z-index: -1;
         }
 
-        /* KIINTEÄ MODERNI YLÄVALIKKO */
+        /* NAVIGOINTI – toimii jo hyvin mobiilissa, vain pientä viilausta */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: 0; left: 0; width: 100%;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             border-bottom: 2px solid #ff0000;
             z-index: 9999;
-            transition: all 0.4s ease;
         }
         .nav-container {
             max-width: 1200px;
@@ -64,72 +36,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem; /* hieman pienempi padding mobiilissa */
         }
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #00eaff;
-            text-shadow: 0 0 15px #00eaff;
-            text-decoration: none;
-        }
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-        .nav-menu a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            transition: all 0.3s;
-        }
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: #ff0000;
-            transition: all 0.4s;
-            transform: translateX(-50%);
-        }
-        .nav-menu a:hover {
-            color: #00eaff;
-            text-shadow: 0 0 10px #00eaff;
-        }
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-
-        /* Hampurilaisvalikko mobiililaitteille */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .hamburger span {
-            width: 30px;
-            height: 3px;
-            background: #00eaff;
-            border-radius: 3px;
-            transition: 0.3s;
-            box-shadow: 0 0 8px #00eaff;
-        }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(8px, -8px); }
+        .logo { font-size: 1.6rem; }
+        .hamburger { display: none; }
+        .hamburger span { width: 28px; height: 3px; background: #00eaff; }
 
         @media (max-width: 900px) {
             .hamburger { display: flex; }
             .nav-menu {
                 position: fixed;
-                top: 74px;
+                top: 74px; /* navbarin korkeus */
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 74px);
@@ -142,203 +59,135 @@
                 gap: 3rem;
             }
             .nav-menu.active { left: 0; }
-            .nav-menu a { font-size: 1.5rem; }
+            .nav-menu a { font-size: 1.6rem; }
         }
 
-        .main-content { margin-top: 90px; }
-
-        header {
-            padding: 30px 0 10px;
+        /* PÄÄSISÄLTÖ */
+        .main-content { 
+            margin-top: 90px; 
+            padding: 0 15px; /* tärkeä mobiilissa */
         }
+
+        header { padding: 30px 0 10px; }
         .header-img {
-            width: 100%;
+            width: 90%;
             max-width: 400px;
             margin: 15px auto;
             display: block;
             box-shadow: 0 0 20px #00eaff;
             border-radius: 15px;
         }
-        h1 {
-            font-size: 2.5em;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #00eaff;
-            text-shadow: 0 0 15px #00eaff;
-            margin: 10px 0;
-        }
-        .intro, #roadmap, #socials { margin: 50px auto; max-width: 800px; }
-        .intro { padding: 30px; background: rgba(42,0,79,0.7); border-radius: 15px; box-shadow: 0 0 20px #ff99cc; }
-        .intro h2 { font-size: 2em; color: #00eaff; text-shadow: 0 0 10px #00eaff; margin-bottom: 20px; }
-        .intro h3 { font-size: 1.6em; color: #ff99cc; text-shadow: 0 0 8px #ff99cc; margin: 25px 0 15px; }
-        .intro p, .intro ul li { font-size: 1.2em; line-height: 1.7; text-shadow: 0 0 5px #fff; margin-bottom: 15px; }
-        .intro ul { list-style: none; text-align: left; margin: 20px auto; max-width: 650px; }
-        .intro ul li { position: relative; padding-left: 30px; }
-        .intro ul li::before { content: "💫"; position: absolute; left: 0; }
+        h1 { font-size: 2.2em; }
 
-        h2 { font-size: 2.2em; color: #00eaff; text-shadow: 0 0 12px #00eaff; margin-bottom: 30px; position: relative; }
-        h2::after { content: ''; position: absolute; bottom: -12px; left: 50%; width: 100px; height: 4px; background: #ff0000; transform: translateX(-50%); }
+        /* YLEISET OSAT – nyt responsiivisia */
+        .intro, #roadmap, #socials {
+            margin: 50px auto;
+            max-width: 900px;
+            width: 100%;               /* TÄRKEÄ */
+            padding: 30px 20px;        /* hyvä sisennys mobiilissa */
+        }
+
+        .intro {
+            background: rgba(42,0,79,0.7);
+            border-radius: 15px;
+            box-shadow: 0 0 20px #ff99cc;
+        }
 
         #roadmap, #socials {
             background: rgba(0,0,0,0.9);
-            padding: 40px;
             border-radius: 20px;
             box-shadow: 0 0 25px #00eaff;
             border: 2px solid #00eaff;
         }
+
+        /* ROADMAP GRID */
         .roadmap-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr;                    /* mobiilissa aina 1 sarake */
             gap: 25px;
         }
+        @media (min-width: 640px) {
+            .roadmap-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .roadmap-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
         .roadmap-item {
             padding: 25px;
             background: #2a004f;
             border-radius: 15px;
             box-shadow: 0 0 20px #ff0000;
-            transition: all 0.4s;
         }
-        .roadmap-item:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 0 35px #ff99cc;
-        }
-        .roadmap-item strong { color: #ff99cc; font-size: 1.3em; }
 
+        /* SOSIAALI-IKONIT – ei enää päällekkäin */
         .social-links {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;     /* mobiilissa pystyyn */
             gap: 20px;
+            width: 100%;
         }
         .social-links p {
             background: rgba(42,0,79,0.7);
-            padding: 18px 25px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 0 15px #ff99cc;
-            flex: 1 1 300px;
-            max-width: 420px;
             font-size: 1.2em;
+            margin: 0;                  /* poistaa turhia marginaaleja */
         }
-        a { color: #ff99cc; text-decoration: none; }
-        a:hover { color: #fff; text-shadow: 0 0 15px #fff; }
+        @media (min-width: 640px) {
+            .social-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .social-links p {
+                flex: 1 1 300px;
+                max-width: 420px;
+            }
+        }
 
         footer {
-            padding: 40px 0;
+            padding: 40px 20px;
             border-top: 2px solid #ff99cc;
             background: rgba(0,0,0,0.9);
             margin-top: 80px;
-            font-size: 1.1em;
         }
+
+        /* Pienet viilaukset */
+        h2 { font-size: 2em; }
+        @media (min-width: 768px) { h2 { font-size: 2.2em; } }
     </style>
 </head>
 <body>
+    <!-- Kaikki muu HTML pysyy ennallaan, mutta kääri sisältö näin: -->
     <div class="bg-overlay"></div>
-
-    <!-- KIINTEÄ NAVIGAATIOVALIKKO -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">Blondie Token</a>
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="https://qh5aza-kw.myshopify.com/products/nimeton-24-marrask-_2-32?utm_campaign=share_orders&utm_content=android&utm_medium=product-links" target="_blank">Shop</a></li>
-                <li><a href="/miner">Miner</a></li>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="#roadmap">Roadmap</a></li>
-                <li><a href="#socials">Socials</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar"> ... </nav>
 
     <div class="main-content">
-        <header id="home">
-            <img src="header-index.png" alt="Blondie Header" class="header-img">
-            <h1>Blondie Token<br>Cosmic Revolution</h1>
-        </header>
+        <header id="home"> ... </header>
 
-        <div class="container">
-            <div class="intro">
-                <h2>What’s Blondie Token All About?</h2>
-                <p>Hey babes! Welcome to the cosmic chaos of Blondie Token – my little rebellion against the boring crypto grind. This isn’t just another coin; it’s a vibe, a community, and a ticket to something epic. I’m Blondie, and this is what we’re building together.</p>
+        <section class="intro"> <!-- muutin div -> section, ei pakollinen -->
+            <!-- kaikki intro-tekstit -->
+        </section>
 
-                <h3>The Basics</h3>
-                <p>Blondie Token is a cryptocurrency dropping in <strong>Q4 2025</strong> (October-December, mark your calendars!). It’s built for <em>everyone</em>—blondes, brunettes, rebels, dreamers, you name it. No suits, no stuffy vibes—just pure, unfiltered fun with a purpose. We’re cooking it on a solid blockchain (details soon!), and it’s gonna power a whole ecosystem of rewards and experiences.</p>
+        <section id="roadmap"> ... </section>
+        <section id="socials"> ... </section>
 
-                <h3>Why Blondie Token?</h3>
-                <p>Crypto can feel like a boys’ club, right? I’m here to flip that script. Blondie Token’s about breaking molds, having a laugh, and making gains on <em>our</em> terms. It’s personal—my heart’s in this, and I’m here chatting with you on X (@blondietoken) every day.</p>
-
-                <h3>The Big Plan</h3>
-                <p>Here’s the roadmap to our starry future:</p>
-                <ul>
-                    <li><strong>Q4 2025 – Launch:</strong> NFT collection drops on marketplaces like OpenSea, with teasers, AMAs, and airdrops for the first 500 Telegram members.</li>
-                    <li><strong>Q1 2026 – Community Growth:</strong> Weekly giveaways, exclusive NFT holder meetups, and a referral program to earn BlondieToken rewards.</li>
-                    <li><strong>Q2 2026 – Marketing & Expansion:</strong> Big campaigns on Reddit and YouTube, community votes on NFT designs, and 50% of sales boosting marketing.</li>
-                    <li><strong>Q3 2026 onward – Long-Term Sustainability:</strong> Aiming for 10k+ community members, new NFT drops, DeFi integrations, and staking rewards.</li>
-                </ul>
-
-                <h3>The Token Lowdown</h3>
-                <p>Tokenomics are still baking (whitepaper’s on the way!), but expect:</p>
-                <ul>
-                    <li>A fair supply split: community, team, and growth.</li>
-                    <li>Real uses: staking, metaverse access, and more surprises.</li>
-                </ul>
-                <p>We’re pre-launch, so no buying yet—just hype and heart for now.</p>
-
-                <h3>Why It’s Special</h3>
-                <p>Blondie Token’s got soul. It’s not some faceless project—it’s <em>me</em>, Blondie, bringing the sass and the vision. It’s for anyone who’s ever felt like an outsider in crypto. Transparent, loud, and a little flirty—that’s us. Stick around, and let’s slay the future together!</p>
-            </div>
-
-            <section id="roadmap">
-                <h2>Roadmap to the Stars</h2>
-                <div class="roadmap-grid">
-                    <div class="roadmap-item">
-                        <strong>Phase 1: Launch (Q4 2025)</strong>
-                        <p>NFT collection hits marketplaces like OpenSea, with teasers, AMAs, and airdrops for the first 500 Telegram members.</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <strong>Phase 2: Community Growth (Q1 2026)</strong>
-                        <p>Weekly giveaways, exclusive NFT holder meetups, and a referral program to earn BlondieToken rewards.</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <strong>Phase 3: Marketing & Expansion (Q2 2026)</strong>
-                        <p>Big campaigns on Reddit and YouTube, community votes on NFT designs, and 50% of sales boosting marketing.</p>
-                    </div>
-                    <div class="roadmap-item">
-                        <strong>Phase 4: Long-Term Sustainability (Q3 2026 onward)</strong>
-                        <p>Target 10k+ community members, new NFT drops, DeFi integrations, and staking rewards for cosmic riches!</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="socials">
-                <h2>Cosmic Connections</h2>
-                <div class="social-links">
-                    <p>X Vibes: <a href="https://x.com/blondietoken" target="_blank">@BlondieToken</a></p>
-                    <p>Tele Crew: <a href="https://t.me/blondietoken" target="_blank">BlondieToken Group</a></p>
-                    <p>Insta Glow: <a href="https://instagram.com/blondietoken" target="_blank">@BlondieToken</a></p>
-                </div>
-            </section>
-        </div>
-
-        <footer>
-            <p>Powered by Blondie – the future’s ours, babes!</p>
-        </footer>
+        <footer> ... </footer>
     </div>
 
-    <!-- MOBIILIVALIKON JAVASCRIPT -->
+    <!-- JS pysyy samana -->
     <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
-
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
-
-        // Sulje valikko kun klikataan linkkiä (mobiili)
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
