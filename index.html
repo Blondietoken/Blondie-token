@@ -52,45 +52,31 @@
             z-index: -1;
         }
 
-        /* UUSI TOP-LOGO – SIIRRETTY VALIKON YLÄPUOLELLE, SUUREMPI */
-        .top-logo {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(12px);
-            z-index: 10000;
-            padding: 15px 0;
-            text-align: center;
-            border-bottom: 2px solid #00eaff;
-        }
-        .top-logo a {
-            font-size: 2.8rem; /* Suurempi kuin ennen (oli 1.8rem) */
-            font-weight: 700;
-            color: #00eaff;
-            text-shadow: 0 0 20px #00eaff;
-            text-decoration: none;
-        }
-
-        /* NAVBAR – NYT ALEMPANA (TOP-LOGO:N ALLA) */
+        /* UUSI VALIKKO-DESIGN: Korkeampi navbar, suurempi logo vasemmalla */
         .navbar {
             position: fixed;
-            top: 60px; /* Säädetty top-logo:n korkeuden mukaan */
-            left: 0; width: 100%;
+            top: 0; left: 0; width: 100%;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(12px);
             border-bottom: 2px solid #ff0000;
             z-index: 9999;
-            padding: 1rem 0;
+            padding: 1.5rem 0; /* Korkeampi padding paremman sovituksen vuoksi */
         }
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: center; /* Keskitetty, koska logo poistettu vasemmalta */
+            justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+            flex-wrap: wrap; /* Estää rikkoutumisen jos liian leveä */
+        }
+        .logo {
+            font-size: 2.8rem; /* Suurempi logo */
+            font-weight: 700;
+            color: #00eaff;
+            text-shadow: 0 0 20px #00eaff; /* Vahvempi hehku */
+            text-decoration: none;
         }
         .nav-menu {
             display: flex;
@@ -165,7 +151,7 @@
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(10px, -10px); }
 
         .main-content { 
-            margin-top: 150px; /* Säädetty (top-logo 60px + navbar 90px) paremman sovituksen vuoksi */
+            margin-top: 120px; /* Kasvatettu estämään päällekkäisyyttä logon/ valikon kanssa */
             padding: 0 15px; 
         }
 
@@ -301,18 +287,18 @@
             font-size: 1.1em;
         }
 
-        /* Mobiili – sovitettu paremmin, logo hieman pienempi mobiilissa */
+        /* Mobiili – Sovitettu paremmin uudelle designille */
         @media (max-width: 900px) {
-            .top-logo a { font-size: 2.2rem; } /* Hieman pienempi mobiilissa */
-            .navbar { top: 50px; } /* Sovitettu mobiiliin */
-            .main-content { margin-top: 120px; } /* Sovitettu mobiiliin */
+            .logo { font-size: 2.2rem; } /* Hieman pienempi mobiilissa */
+            .navbar { padding: 1rem 0; } /* Mobiilissa matalampi */
+            .main-content { margin-top: 100px; } /* Sovitettu mobiiliin */
             .hamburger { display: flex; }
             .nav-menu {
                 position: fixed;
-                top: 50px; /* Hamburger mobiilissa navbarin alla */
+                top: 70px; /* Säädetty uuden navbar-korkeuden mukaan */
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 50px);
+                height: calc(100vh - 70px);
                 background: rgba(0, 0, 0, 0.98);
                 flex-direction: column;
                 justify-content: flex-start;
@@ -335,14 +321,9 @@
 
     <div class="bg-overlay"></div>
 
-    <!-- UUSI TOP-LOGO – YLÄPUOLELLA VALIKKOA -->
-    <div class="top-logo">
-        <a href="/">Blondie Token</a>
-    </div>
-
-    <!-- NAVBAR – NYT ILMAN LOGOA VASEN, KESKITETTY -->
     <nav class="navbar">
         <div class="nav-container">
+            <a href="/" class="logo">Blondie Token</a>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="https://qh5aza-kw.myshopify.com/products/nimeton-24-marrask-_2-32?utm_campaign=share_orders&utm_content=android&utm_medium=product-links" target="_blank">Shop</a></li>
