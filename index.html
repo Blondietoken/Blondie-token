@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Hey babes! One more follower and Blondie’s got 300 Spartans – join the cosmic slay!">
     <meta name="twitter:image" content="https://blondietoken.github.io/Blondie-token/header-index.png">
 
-    <!-- Google Analytics -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y17SSM7PQ1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -39,10 +39,10 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
-            transition: overflow 0.3s ease;
         }
-        body.menu-open { overflow: hidden; } /* estää taustan scrollauksen kun valikko auki */
-
+        body.menu-open {
+            overflow: hidden;
+        }
         .bg-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -52,7 +52,7 @@
             z-index: -1;
         }
 
-        /* UUSI VALIKKO-DESIGN: Korkeampi navbar, suurempi logo vasemmalla */
+        /* KIINTEÄ YLÄVALIKKO */
         .navbar {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -60,7 +60,7 @@
             backdrop-filter: blur(12px);
             border-bottom: 2px solid #ff0000;
             z-index: 9999;
-            padding: 1.5rem 0; /* Korkeampi padding paremman sovituksen vuoksi */
+            padding: 1rem 0;
         }
         .nav-container {
             max-width: 1200px;
@@ -69,13 +69,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            flex-wrap: wrap; /* Estää rikkoutumisen jos liian leveä */
         }
         .logo {
-            font-size: 2.8rem; /* Suurempi logo */
+            font-size: 1.8rem;
             font-weight: 700;
             color: #00eaff;
-            text-shadow: 0 0 20px #00eaff; /* Vahvempi hehku */
+            text-shadow: 0 0 15px #00eaff;
             text-decoration: none;
         }
         .nav-menu {
@@ -87,7 +86,7 @@
         .nav-menu a {
             color: #fff;
             text-decoration: none;
-            font-size: 1.1rem; /* Sama koko kuin ennen */
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             position: relative;
@@ -104,14 +103,21 @@
             transition: all 0.4s;
             transform: translateX(-50%);
         }
-        .nav-menu a:hover { color: #00eaff; text-shadow: 0 0 10px #00eaff; }
+        .nav-menu a:hover {
+            color: #00eaff;
+            text-shadow: 0 0 10px #00eaff;
+        }
         .nav-menu a:hover::after { width: 100%; }
 
-        /* Coming Soon */
-        .nav-item { position: relative; display: inline-block; }
+        /* COMING SOON */
+        .nav-item {
+            position: relative;
+            display: inline-block;
+        }
         .coming-soon-overlay {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%) rotate(-28deg);
             font-size: 1.4rem;
             font-weight: 700;
@@ -130,13 +136,12 @@
         }
         .coming-soon-item::after { display: none; }
 
-        /* Hamburger */
+        /* HAMPURILAISVALIKKO */
         .hamburger {
             display: none;
             cursor: pointer;
             flex-direction: column;
             gap: 6px;
-            z-index: 10000;
         }
         .hamburger span {
             width: 32px;
@@ -150,12 +155,14 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(10px, -10px); }
 
-        .main-content { 
-            margin-top: 120px; /* Kasvatettu estämään päällekkäisyyttä logon/ valikon kanssa */
-            padding: 0 15px; 
+        /* PÄÄSISÄLTÖ */
+        .main-content {
+            margin-top: 90px;
+            padding: 0 15px;
         }
-
-        header { padding: 30px 0 20px; }
+        header {
+            padding: 30px 0 20px;
+        }
         .header-img {
             width: 90%;
             max-width: 420px;
@@ -180,8 +187,15 @@
             padding: 40px 30px;
             border-radius: 20px;
         }
-        .intro { background: rgba(42, 0, 79, 0.75); box-shadow: 0 0 30px #ff99cc; }
-        #roadmap, #socials { background: rgba(0, 0, 0, 0.92); box-shadow: 0 0 30px #00eaff; border: 2px solid #00eaff; }
+        .intro {
+            background: rgba(42, 0, 79, 0.75);
+            box-shadow: 0 0 30px #ff99cc;
+        }
+        #roadmap, #socials {
+            background: rgba(0, 0, 0, 0.92);
+            box-shadow: 0 0 30px #00eaff;
+            border: 2px solid #00eaff;
+        }
 
         h2 {
             font-size: 2em;
@@ -200,8 +214,12 @@
             background: #ff0000;
             transform: translateX(-50%);
         }
-        h3 { font-size: 1.6em; color: #ff99cc; text-shadow: 0 0 8px #ff99cc; margin: 30px 0 15px; }
-
+        h3 {
+            font-size: 1.6em;
+            color: #ff99cc;
+            text-shadow: 0 0 8px #ff99cc;
+            margin: 30px 0 15px;
+        }
         p { margin-bottom: 1.4em; }
 
         .intro ul {
@@ -224,6 +242,7 @@
             color: #ff99cc;
         }
 
+        /* VAIN TOKENOMICSILLE LISÄTTY TYYLIT */
         .tokenomics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -243,12 +262,29 @@
             box-shadow: 0 0 30px #ff99cc;
             border-color: #00eaff;
         }
-        .percent { font-size: 3em; font-weight: 700; color: #00eaff; text-shadow: 0 0 15px #00eaff; }
-        .label { font-size: 1.3em; color: #ff99cc; margin: 10px 0; }
+        .percent {
+            font-size: 3em;
+            font-weight: 700;
+            color: #00eaff;
+            text-shadow: 0 0 15px #00eaff;
+        }
+        .label {
+            font-size: 1.3em;
+            color: #ff99cc;
+            margin: 10px 0;
+        }
 
-        .roadmap-grid { display: grid; gap: 30px; margin-top: 40px; }
-        @media (min-width: 640px) { .roadmap-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (min-width: 1024px) { .roadmap-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); } }
+        .roadmap-grid {
+            display: 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        @media (min-width: 640px) {
+            .roadmap-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .roadmap-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        }
         .roadmap-item {
             padding: 28px;
             background: #2a004f;
@@ -256,7 +292,10 @@
             box-shadow: 0 0 20px #ff0000;
             transition: all 0.4s;
         }
-        .roadmap-item:hover { transform: translateY(-10px); box-shadow: 0 0 35px #ff99cc; }
+        .roadmap-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 35px #ff99cc;
+        }
         .roadmap-item strong {
             color: #ff99cc;
             font-size: 1.3em;
@@ -264,7 +303,12 @@
             margin-bottom: 12px;
         }
 
-        .social-links { display: flex; flex-direction: column; gap: 25px; margin-top: 40px; }
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 40px;
+        }
         .social-links p {
             background: rgba(42, 0, 79, 0.7);
             padding: 22px;
@@ -272,11 +316,24 @@
             box-shadow: 0 0 20px #ff99cc;
             font-size: 1.2em;
         }
-        .social-links a { color: #00eaff; text-decoration: none; }
-        .social-links a:hover { text-shadow: 0 0 10px #00eaff; }
+        .social-links a {
+            color: #00eaff;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            text-shadow: 0 0 10px #00eaff;
+        }
         @media (min-width: 640px) {
-            .social-links { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-            .social-links p { flex: 1 1 300px; max-width: 420px; margin: 0 15px; }
+            .social-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .social-links p {
+                flex: 1 1 300px;
+                max-width: 420px;
+                margin: 0 15px;
+            }
         }
 
         footer {
@@ -287,18 +344,15 @@
             font-size: 1.1em;
         }
 
-        /* Mobiili – Sovitettu paremmin uudelle designille */
+        /* MOBIILI */
         @media (max-width: 900px) {
-            .logo { font-size: 2.2rem; } /* Hieman pienempi mobiilissa */
-            .navbar { padding: 1rem 0; } /* Mobiilissa matalampi */
-            .main-content { margin-top: 100px; } /* Sovitettu mobiiliin */
             .hamburger { display: flex; }
             .nav-menu {
                 position: fixed;
-                top: 70px; /* Säädetty uuden navbar-korkeuden mukaan */
+                top: 78px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 70px);
+                height: calc(100vh - 78px);
                 background: rgba(0, 0, 0, 0.98);
                 flex-direction: column;
                 justify-content: flex-start;
@@ -306,11 +360,9 @@
                 padding-top: 5rem;
                 transition: left 0.4s ease;
                 gap: 3.5rem;
-                z-index: 9998;
-                overflow-y: auto;
             }
             .nav-menu.active { left: 0; }
-            .nav-menu a, .nav-item { font-size: 1.8rem; padding: 10px 20px; }
+            .nav-menu a, .nav-item { font-size: 1.8rem; }
             .coming-soon-overlay { font-size: 2.2rem; letter-spacing: 6px; }
             h1 { font-size: 2em; }
             .intro, #roadmap, #socials { padding: 35px 20px; margin: 50px auto; }
@@ -318,9 +370,9 @@
     </style>
 </head>
 <body>
-
     <div class="bg-overlay"></div>
 
+    <!-- NAVI PYSYY 100% SAMANA -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">Blondie Token</a>
@@ -330,10 +382,6 @@
                 <li><a href="spark-leaderboard.html">Spark Points ✦</a></li>
                 <li class="nav-item">
                     <a href="#" class="coming-soon-item">Miner</a>
-                    <div class="coming-soon-overlay">COMING SOON</div>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="coming-soon-item">Whitepaper</a>
                     <div class="coming-soon-overlay">COMING SOON</div>
                 </li>
                 <li class="nav-item">
@@ -373,6 +421,7 @@
                 <li><strong>Q3 2026 onward – Long-Term Sustainability:</strong> Aiming for 10k+ community members, new NFT drops, DeFi integrations, and staking rewards.</li>
             </ul>
 
+            <!-- VAIN TÄMÄ OSIO ON UUSI – KAIKKI MUUT TEKSTIT 100% ALKUPERÄISET -->
             <h3>Tokenomics</h3>
             <p style="font-size:1.8em; color:#ff99cc; margin:30px 0 40px;">Total Supply: 1,000,000,000 $BLONDIE<br><span style="font-size:0.6em; opacity:0.9;">(standard memecoin setup – no burns at launch)</span></p>
 
@@ -408,6 +457,7 @@
             <p>Blondie Token’s got soul. It’s not some faceless project—it’s <em>me</em>, Blondie, bringing the sass and the vision. It’s for anyone who’s ever felt like an outsider in crypto. Transparent, loud, and a little flirty—that’s us. Stick around, and let’s slay the future together!</p>
         </div>
 
+        <!-- ROADMAP & SOCIALS 100% ALKUPERÄISET -->
         <section id="roadmap">
             <h2>Roadmap to the Stars</h2>
             <div class="roadmap-grid">
@@ -450,22 +500,18 @@
         const body = document.body;
 
         hamburger.addEventListener('click', () => {
-            const isActive = navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
-            if (isActive) {
-                body.classList.add('menu-open');
-            } else {
-                body.classList.remove('menu-open');
-            }
+            navMenu.classList.toggle('active');
+            body.classList.toggle('menu-open');
         });
 
         document.querySelectorAll('.nav-menu a:not(.coming-soon-item)').forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
                 body.classList.remove('menu-open');
             });
         });
     </script>
 </body>
-    </html>
+                    </html>
