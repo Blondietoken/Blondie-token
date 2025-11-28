@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Hey babes! One more follower and Blondie’s got 300 Spartans – join the cosmic slay!">
     <meta name="twitter:image" content="https://blondietoken.github.io/Blondie-token/header-index.png">
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y17SSM7PQ1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -39,7 +39,10 @@
             min-height: 100vh;
             overflow-x: hidden;
             line-height: 1.6;
+            transition: overflow 0.3s ease;
         }
+        body.menu-open { overflow: hidden; } /* estää taustan scrollauksen kun valikko auki */
+
         .bg-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -49,7 +52,7 @@
             z-index: -1;
         }
 
-        /* KIINTEÄ YLÄVALIKKO */
+        /* Navbar */
         .navbar {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -100,21 +103,14 @@
             transition: all 0.4s;
             transform: translateX(-50%);
         }
-        .nav-menu a:hover {
-            color: #00eaff;
-            text-shadow: 0 0 10px #00eaff;
-        }
+        .nav-menu a:hover { color: #00eaff; text-shadow: 0 0 10px #00eaff; }
         .nav-menu a:hover::after { width: 100%; }
 
-        /* COMING SOON */
-        .nav-item {
-            position: relative;
-            display: inline-block;
-        }
+        /* Coming Soon */
+        .nav-item { position: relative; display: inline-block; }
         .coming-soon-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%) rotate(-28deg);
             font-size: 1.4rem;
             font-weight: 700;
@@ -133,12 +129,13 @@
         }
         .coming-soon-item::after { display: none; }
 
-        /* HAMPURILAISVALIKKO */
+        /* Hamburger */
         .hamburger {
             display: none;
             cursor: pointer;
             flex-direction: column;
             gap: 6px;
+            z-index: 10000;
         }
         .hamburger span {
             width: 32px;
@@ -152,14 +149,9 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(10px, -10px); }
 
-        /* PÄÄSISÄLTÖ */
-        .main-content {
-            margin-top: 90px;
-            padding: 0 15px;
-        }
-        header {
-            padding: 30px 0 20px;
-        }
+        .main-content { margin-top: 90px; padding: 0 15px; }
+
+        header { padding: 30px 0 20px; }
         .header-img {
             width: 90%;
             max-width: 420px;
@@ -184,15 +176,8 @@
             padding: 40px 30px;
             border-radius: 20px;
         }
-        .intro {
-            background: rgba(42, 0, 79, 0.75);
-            box-shadow: 0 0 30px #ff99cc;
-        }
-        #roadmap, #socials {
-            background: rgba(0, 0, 0, 0.92);
-            box-shadow: 0 0 30px #00eaff;
-            border: 2px solid #00eaff;
-        }
+        .intro { background: rgba(42, 0, 79, 0.75); box-shadow: 0 0 30px #ff99cc; }
+        #roadmap, #socials { background: rgba(0, 0, 0, 0.92); box-shadow: 0 0 30px #00eaff; border: 2px solid #00eaff; }
 
         h2 {
             font-size: 2em;
@@ -211,35 +196,8 @@
             background: #ff0000;
             transform: translateX(-50%);
         }
-        h3 {
-            font-size: 1.6em;
-            color: #ff99cc;
-            text-shadow: 0 0 8px #ff99cc;
-            margin: 30px 0 15px;
-        }
-        p { margin-bottom: 1.4em; }
+        h3 { font-size: 1.6em; color: #ff99cc; text-shadow: 0 0 8px #ff99cc; margin: 30px 0 15px; }
 
-        .intro ul {
-            list-style: none;
-            text-align: left;
-            max-width: 720px;
-            margin: 30px auto;
-        }
-        .intro ul li {
-            padding-left: 35px;
-            position: relative;
-            margin: 18px 0;
-            font-size: 1.15em;
-            line-height: 1.5;
-        }
-        .intro ul li::before {
-            content: "✦";
-            position: absolute;
-            left: 0;
-            color: #ff99cc;
-        }
-
-        /* VAIN TOKENOMICSILLE LISÄTTY TYYLIT */
         .tokenomics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -259,29 +217,12 @@
             box-shadow: 0 0 30px #ff99cc;
             border-color: #00eaff;
         }
-        .percent {
-            font-size: 3em;
-            font-weight: 700;
-            color: #00eaff;
-            text-shadow: 0 0 15px #00eaff;
-        }
-        .label {
-            font-size: 1.3em;
-            color: #ff99cc;
-            margin: 10px 0;
-        }
+        .percent { font-size: 3em; font-weight: 700; color: #00eaff; text-shadow: 0 0 15px #00eaff; }
+        .label { font-size: 1.3em; color: #ff99cc; margin: 10px 0; }
 
-        .roadmap-grid {
-            display: 1fr;
-            gap: 30px;
-            margin-top: 40px;
-        }
-        @media (min-width: 640px) {
-            .roadmap-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (min-width: 1024px) {
-            .roadmap-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-        }
+        .roadmap-grid { display: grid; gap: 30px; margin-top: 40px; }
+        @media (min-width: 640px) { .roadmap-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .roadmap-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); } }
         .roadmap-item {
             padding: 28px;
             background: #2a004f;
@@ -289,23 +230,9 @@
             box-shadow: 0 0 20px #ff0000;
             transition: all 0.4s;
         }
-        .roadmap-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 35px #ff99cc;
-        }
-        .roadmap-item strong {
-            color: #ff99cc;
-            font-size: 1.3em;
-            display: block;
-            margin-bottom: 12px;
-        }
+        .roadmap-item:hover { transform: translateY(-10px); box-shadow: 0 0 35px #ff99cc; }
 
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-top: 40px;
-        }
+        .social-links { display: flex; flex-direction: column; gap: 25px; margin-top: 40px; }
         .social-links p {
             background: rgba(42, 0, 79, 0.7);
             padding: 22px;
@@ -313,24 +240,11 @@
             box-shadow: 0 0 20px #ff99cc;
             font-size: 1.2em;
         }
-        .social-links a {
-            color: #00eaff;
-            text-decoration: none;
-        }
-        .social-links a:hover {
-            text-shadow: 0 0 10px #00eaff;
-        }
+        .social-links a { color: #00eaff; text-decoration: none; }
+        .social-links a:hover { text-shadow: 0 0 10px #00eaff; }
         @media (min-width: 640px) {
-            .social-links {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .social-links p {
-                flex: 1 1 300px;
-                max-width: 420px;
-                margin: 0 15px;
-            }
+            .social-links { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+            .social-links p { flex: 1 1 300px; max-width: 420px; margin: 0 15px; }
         }
 
         footer {
@@ -341,7 +255,7 @@
             font-size: 1.1em;
         }
 
-        /* MOBIILI */
+        /* Mobiili */
         @media (max-width: 900px) {
             .hamburger { display: flex; }
             .nav-menu {
@@ -357,34 +271,42 @@
                 padding-top: 5rem;
                 transition: left 0.4s ease;
                 gap: 3.5rem;
+                z-index: 9998;
+                overflow-y: auto;
             }
             .nav-menu.active { left: 0; }
-            .nav-menu a, .nav-item { font-size: 1.8rem; }
+            .nav-menu a, .nav-item { font-size: 1.8rem; padding: 10px 20px; }
             .coming-soon-overlay { font-size: 2.2rem; letter-spacing: 6px; }
             h1 { font-size: 2em; }
-            .intro, #roadmap, #socials { padding: 35px 20px; margin: 50px auto; }
         }
     </style>
 </head>
 <body>
+
     <div class="bg-overlay"></div>
 
-    <!-- NAVI PYSYY 100% SAMANA -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">Blondie Token</a>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="https://qh5aza-kw.myshopify.com/products/nimeton-24-marrask-_2-32?utm_campaign=share_orders&utm_content=android&utm_medium=product-links" target="_blank">Shop</a></li>
-                <li><a href="spark-leaderboard.html">Spark Points ✦</a></li>
+                <li><a href="spark-leaderboard.html">Spark Points</a></li>
+
+                <!-- Coming Soon -kohdat -->
                 <li class="nav-item">
                     <a href="#" class="coming-soon-item">Miner</a>
+                    <div class="coming-soon-overlay">COMING SOON</div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="coming-soon-item">Whitepaper</a>
                     <div class="coming-soon-overlay">COMING SOON</div>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="coming-soon-item">Profile</a>
                     <div class="coming-soon-overlay">COMING SOON</div>
                 </li>
+
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#socials">Socials</a></li>
             </ul>
@@ -418,62 +340,28 @@
                 <li><strong>Q3 2026 onward – Long-Term Sustainability:</strong> Aiming for 10k+ community members, new NFT drops, DeFi integrations, and staking rewards.</li>
             </ul>
 
-            <!-- VAIN TÄMÄ OSIO ON UUSI – KAIKKI MUUT TEKSTIT 100% ALKUPERÄISET -->
             <h3>Tokenomics</h3>
             <p style="font-size:1.8em; color:#ff99cc; margin:30px 0 40px;">Total Supply: 1,000,000,000 $BLONDIE<br><span style="font-size:0.6em; opacity:0.9;">(standard memecoin setup – no burns at launch)</span></p>
 
             <div class="tokenomics-grid">
-                <div class="token-item">
-                    <div class="percent">50%</div>
-                    <div class="label">Liquidity Pool</div>
-                    <p>Locked post-Raydium migration at ~$90K MC</p>
-                </div>
-                <div class="token-item">
-                    <div class="percent">20%</div>
-                    <div class="label">Marketing & Partnerships</div>
-                    <p>For hype, AMAs, and collabs</p>
-                </div>
-                <div class="token-item">
-                    <div class="percent">15%</div>
-                    <div class="label">Team & Advisors</div>
-                    <p>Vested over 6 months for long-term commitment</p>
-                </div>
-                <div class="token-item">
-                    <div class="percent">10%</div>
-                    <div class="label">Airdrops & Community Rewards</div>
-                    <p>For early supporters and engagement</p>
-                </div>
-                <div class="token-item">
-                    <div class="percent">5%</div>
-                    <div class="label">Staking Incentives</div>
-                    <p>Future utility for holders earning yields</p>
-                </div>
+                <div class="token-item"><div class="percent">50%</div><div class="label">Liquidity Pool</div><p>Locked post-Raydium migration at ~$90K MC</p></div>
+                <div class="token-item"><div class="percent">20%</div><div class="label">Marketing & Partnerships</div><p>For hype, AMAs, and collabs</p></div>
+                <div class="token-item"><div class="percent">15%</div><div class="label">Team & Advisors</div><p>Vested over 6 months for long-term commitment</p></div>
+                <div class="token-item"><div class="percent">10%</div><div class="label">Airdrops & Community Rewards</div><p>For early supporters and engagement</p></div>
+                <div class="token-item"><div class="percent">5%</div><div class="label">Staking Incentives</div><p>Future utility for holders earning yields</p></div>
             </div>
 
             <h3>Why It’s Special</h3>
             <p>Blondie Token’s got soul. It’s not some faceless project—it’s <em>me</em>, Blondie, bringing the sass and the vision. It’s for anyone who’s ever felt like an outsider in crypto. Transparent, loud, and a little flirty—that’s us. Stick around, and let’s slay the future together!</p>
         </div>
 
-        <!-- ROADMAP & SOCIALS 100% ALKUPERÄISET -->
         <section id="roadmap">
             <h2>Roadmap to the Stars</h2>
             <div class="roadmap-grid">
-                <div class="roadmap-item">
-                    <strong>Phase 1: Launch (Q4 2025)</strong>
-                    <p>NFT collection hits marketplaces like OpenSea, with teasers, AMAs, and airdrops for the first 500 Telegram members.</p>
-                </div>
-                <div class="roadmap-item">
-                    <strong>Phase 2: Community Growth (Q1 2026)</strong>
-                    <p>Weekly giveaways, exclusive NFT holder meetups, and a referral program to earn BlondieToken rewards.</p>
-                </div>
-                <div class="roadmap-item">
-                    <strong>Phase 3: Marketing & Expansion (Q2 2026)</strong>
-                    <p>Big campaigns on Reddit and YouTube, community votes on NFT designs, and 50% of sales boosting marketing.</p>
-                </div>
-                <div class="roadmap-item">
-                    <strong>Phase 4: Long-Term Sustainability (Q3 2026 onward)</strong>
-                    <p>Target 10k+ community members, new NFT drops, DeFi integrations, and staking rewards for cosmic riches!</p>
-                </div>
+                <div class="roadmap-item"><strong>Phase 1: Launch (Q4 2025)</strong><p>NFT collection hits marketplaces like OpenSea, with teasers, AMAs, and airdrops for the first 500 Telegram members.</p></div>
+                <div class="roadmap-item"><strong>Phase 2: Community Growth (Q1 2026)</strong><p>Weekly giveaways, exclusive NFT holder meetups, and a referral program to earn BlondieToken rewards.</p></div>
+                <div class="roadmap-item"><strong>Phase 3: Marketing & Expansion (Q2 2026)</strong><p>Big campaigns on Reddit and YouTube, community votes on NFT designs, and 50% of sales boosting marketing.</p></div>
+                <div class="roadmap-item"><strong>Phase 4: Long-Term Sustainability (Q3 2026 onward)</strong><p>Target 10k+ community members, new NFT drops, DeFi integrations, and staking rewards for cosmic riches!</p></div>
             </div>
         </section>
 
@@ -494,16 +382,23 @@
     <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
+        const body = document.body;
 
         hamburger.addEventListener('click', () => {
+            const isActive = navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            if (isActive) {
+                body.classList.add('menu-open');
+            } else {
+                body.classList.remove('menu-open');
+            }
         });
 
         document.querySelectorAll('.nav-menu a:not(.coming-soon-item)').forEach(link => {
             link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+                body.classList.remove('menu-open');
             });
         });
     </script>
