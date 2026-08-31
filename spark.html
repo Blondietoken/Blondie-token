@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blondie Token Spark Points – Leaderboard, referrals, tasks. Climb the ranks and win from the prize pool.">
+  <title>Spark Points – Blondie Token</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="bg-stars"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">BLONDIE<span>✦</span></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="spark.html" class="active">Spark Points</a></li>
+        <li><a href="miner.html">Miner</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="nav-points hidden" id="nav-points">✦ 0</span>
+        <span class="nav-mining-badge" id="nav-mining-badge">⛏ MINING</span>
+        <span class="nav-points hidden" id="nav-user" style="border-color:var(--neon-pink);color:var(--neon-pink)"></span>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="spark-header">
+      <h1>✦ Spark Points ✦</h1>
+      <p style="color:var(--text-muted);">Earn · Invite · Climb · Win</p>
+    </div>
+
+    <!-- PRIZE POOL -->
+    <div class="prize-pool">
+      <p style="font-size:0.9rem;letter-spacing:2px;color:var(--neon-pink);margin-bottom:8px;">TOTAL PRIZE POOL</p>
+      <div class="prize-amount">$2,000 in $BLONDIE</div>
+      <p style="font-size:0.85rem;color:#aaa;margin-top:8px;">Contest ends when token launches · Top ranks share the pool</p>
+    </div>
+
+    <!-- USER POINTS (if logged in) -->
+    <div class="user-points-display" id="user-points-section">
+      <p style="color:var(--text-muted);font-size:0.9rem;">Your Spark Points</p>
+      <div class="user-points-value" id="user-points-val">—</div>
+      <p id="user-rank-text" style="color:var(--neon-pink);font-size:0.95rem;"></p>
+    </div>
+
+    <!-- LOGIN PROMPT -->
+    <div class="card text-center" id="login-prompt">
+      <p style="color:var(--neon-pink);margin-bottom:16px;">Connect wallet & create username to start earning Spark Points</p>
+      <a href="profile.html" class="btn btn-primary">Go to Profile →</a>
+    </div>
+
+    <!-- REFERRAL -->
+    <div class="referral-box hidden" id="referral-section">
+      <h3>Your Unique Referral Link</h3>
+      <div class="referral-link" id="spark-ref-link"></div>
+      <button class="btn btn-secondary btn-sm" onclick="copySparkRef()">Copy Link</button>
+      <p style="margin-top:14px;font-size:0.9rem;color:#ccc;">
+        Every friend who signs up with your link = <strong style="color:var(--neon-cyan)">+500 Spark Points</strong> for you!
+      </p>
+    </div>
+
+    <!-- TASKS -->
+    <section id="tasks-section">
+      <h2 style="text-align:center;margin-bottom:20px;">Earn Spark Points</h2>
+      <div class="tasks-grid" id="tasks-grid">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section class="card card-dark" style="margin-top:40px;">
+      <h2 style="text-align:center;">Top 20 Cosmic Slayers</h2>
+      <div style="overflow-x:auto;">
+        <table class="leaderboard-table" id="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Username</th>
+              <th>Spark Points ✦</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WALLET SUBMIT -->
+    <section class="card" style="margin-top:30px;text-align:center;">
+      <h3>Submit Wallet for Prizes</h3>
+      <p style="color:#aaa;font-size:0.9rem;margin-bottom:16px;">
+        At contest end, top ranks will receive $BLONDIE. Submit the wallet you want prizes sent to.
+      </p>
+      <div class="username-form" style="max-width:400px;margin:0 auto;">
+        <input type="text" id="prize-wallet" placeholder="Solana / EVM wallet address">
+        <button class="btn btn-pink" onclick="submitPrizeWallet()">Save Wallet</button>
+      </div>
+      <p id="prize-saved" class="hidden" style="color:#00ff88;margin-top:12px;">✓ Wallet saved locally</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Blondie Token · Spark Points Leaderboard</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    const TASKS = [
+      { id: 'follow_x', label: 'Follow @blondietoken on X', points: 100, link: 'https://x.com/blondietoken' },
+      { id: 'join_tg', label: 'Join Telegram Group', points: 150, link: 'https://t.me/blondietoken' },
+      { id: 'retweet', label: 'Retweet Pinned Post', points: 200, link: 'https://x.com/blondietoken' },
+      { id: 'hashtag', label: 'Post with #BlondieToken', points: 300, link: 'https://x.com/compose/tweet?text=%23BlondieToken' },
+      { id: 'invite_1', label: 'Invite 1 Friend (who joins)', points: 500, link: null },
+      { id: 'invite_5', label: 'Invite 5 Friends', points: 3000, link: null }
+    ];
+
+    function renderSparkPage() {
+      const loggedIn = isLoggedIn();
+      const user = getUser();
+
+      // Points display
+      const pointsSection = document.getElementById('user-points-section');
+      const loginPrompt = document.getElementById('login-prompt');
+      const referralSection = document.getElementById('referral-section');
+
+      if (loggedIn) {
+        loginPrompt.classList.add('hidden');
+        pointsSection.classList.remove('hidden');
+        referralSection.classList.remove('hidden');
+        document.getElementById('user-points-val').textContent = (user.sparkPoints || 0).toLocaleString();
+        const rank = getUserRank();
+        document.getElementById('user-rank-text').textContent = rank
+          ? `Rank #${rank} on the leaderboard`
+          : 'Not yet ranked — keep earning!';
+        document.getElementById('spark-ref-link').textContent = getReferralLink() || '—';
+      } else {
+        pointsSection.classList.add('hidden');
+        referralSection.classList.add('hidden');
+        loginPrompt.classList.remove('hidden');
+      }
+
+      // Tasks
+      const grid = document.getElementById('tasks-grid');
+      const completed = getCompletedTasks();
+      grid.innerHTML = TASKS.map(task => {
+        const done = completed.includes(task.id);
+        return `
+          <div class="task-card ${done ? 'completed' : ''}">
+            <div>
+              <strong style="color:#fff;">${task.label}</strong>
+              <div class="task-reward">+${task.points} ✦</div>
+            </div>
+            <button class="btn ${done ? 'btn-secondary' : 'btn-primary'} btn-sm"
+              ${done ? 'disabled' : ''}
+              onclick="handleTask('${task.id}', ${task.points}, ${task.link ? `'${task.link}'` : 'null'})">
+              ${done ? '✓ Completed' : 'Claim'}
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      // Leaderboard
+      const lb = getLeaderboard().slice(0, 20);
+      const tbody = document.getElementById('leaderboard-body');
+      const myName = user && user.username ? user.username : null;
+      tbody.innerHTML = lb.map((entry, i) => {
+        const rank = i + 1;
+        const rankClass = rank <= 3 ? `rank-${rank}` : '';
+        const isMe = myName && entry.username === myName;
+        return `
+          <tr class="${isMe ? 'user-rank-highlight' : ''}">
+            <td class="${rankClass}">#${rank}</td>
+            <td>${isMe ? '→ ' : ''}${entry.username}${isMe ? ' (you)' : ''}</td>
+            <td style="color:var(--neon-cyan);font-weight:600;">${entry.points.toLocaleString()}</td>
+          </tr>
+        `;
+      }).join('');
+
+      // Prize wallet
+      const saved = localStorage.getItem('blondie_prize_wallet');
+      if (saved) {
+        document.getElementById('prize-wallet').value = saved;
+        document.getElementById('prize-saved').classList.remove('hidden');
+      }
+    }
+
+    function handleTask(taskId, points, link) {
+      if (!isLoggedIn()) {
+        showToast('Connect wallet & create username first!', 'error');
+        window.location.href = 'profile.html';
+        return;
+      }
+      // Open link if provided
+      if (link) {
+        window.open(link, '_blank', 'noopener');
+      }
+      // For invite tasks — just inform
+      if (taskId === 'invite_1' || taskId === 'invite_5') {
+        showToast('Share your referral link! Points are awarded when friends sign up.', 'info');
+        // Still allow "claim" as mock for demo (except invite_5 needs 5)
+        if (taskId === 'invite_5') {
+          showToast('Invite 5 friends to unlock this bonus.', 'info');
+          return;
+        }
+      }
+      const result = completeTask(taskId, points);
+      if (result.ok) {
+        renderSparkPage();
+        updateNavbar();
+      } else if (result.error === 'already_done') {
+        showToast('Already completed!', 'error');
+      }
+    }
+
+    function copySparkRef() {
+      const link = document.getElementById('spark-ref-link').textContent;
+      if (link && link !== '—') {
+        navigator.clipboard.writeText(link).then(() => showToast('Copied!', 'success'))
+          .catch(() => showToast('Copy manually', 'error'));
+      }
+    }
+
+    function submitPrizeWallet() {
+      const input = document.getElementById('prize-wallet');
+      const val = input.value.trim();
+      if (val.length < 20) {
+        showToast('Enter a valid wallet address', 'error');
+        return;
+      }
+      localStorage.setItem('blondie_prize_wallet', val);
+      document.getElementById('prize-saved').classList.remove('hidden');
+      showToast('Prize wallet saved!', 'success');
+    }
+
+    // Handle ?ref= on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref');
+      if (ref && !isLoggedIn()) {
+        // Store for when they create profile
+        sessionStorage.setItem('blondie_pending_ref', ref);
+        showToast(`You were invited by @${ref}! Create a profile to get started.`, 'info');
+      }
+      // Apply pending ref when username is set (handled in setUsername)
+      renderSparkPage();
+    });
+  </script>
+</body>
+</html>

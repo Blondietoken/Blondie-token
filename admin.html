@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin – Blondie Token</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/@solana/web3.js@1.95.4/lib/index.iife.min.js"></script>
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="bg-stars"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">BLONDIE<span>✦</span> ADMIN</a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="admin.html" class="active">Admin</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    </div>
+  </nav>
+
+  <main class="main-content" style="max-width:900px;">
+    <h1 style="text-align:center;">Admin Panel</h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:24px;font-size:0.9rem;">
+      Competition control · Custodial withdrawals · User tools
+    </p>
+
+    <!-- LOGIN -->
+    <div class="card card-dark" id="admin-login">
+      <h2 style="text-align:center;">Admin login</h2>
+      <div class="username-form" style="max-width:360px;margin:20px auto;">
+        <input type="password" id="admin-pass" placeholder="Admin password" autocomplete="current-password">
+        <button class="btn btn-primary" onclick="doAdminLogin()">Login</button>
+      </div>
+      <p style="text-align:center;font-size:0.75rem;color:#666;">Client-side session (8h). Change password in js/app.js before production.</p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="admin-dash" class="hidden">
+      <div style="text-align:right;margin-bottom:12px;">
+        <button class="btn btn-secondary btn-sm" onclick="doAdminLogout()">Logout</button>
+      </div>
+
+      <!-- Competition -->
+      <section class="card card-glow-cyan">
+        <h2>Competition status</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0;">
+          <div class="stat-box">
+            <div class="stat-value" id="a-ended" style="font-size:1.2rem;">—</div>
+            <div class="stat-label">Contest ended</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="a-withdraw" style="font-size:1.2rem;">—</div>
+            <div class="stat-label">Withdrawals</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="a-enddate" style="font-size:0.95rem;">—</div>
+            <div class="stat-label">End date (UTC)</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;">
+          <button class="btn btn-primary btn-sm" onclick="toggleEnded()">Toggle contest ENDED</button>
+          <button class="btn btn-pink btn-sm" onclick="toggleWithdrawals()">Toggle WITHDRAWALS</button>
+        </div>
+        <div class="username-form" style="margin-top:16px;max-width:400px;">
+          <label style="font-size:0.8rem;color:#aaa;">Set end date (ISO)</label>
+          <input type="text" id="a-end-input" placeholder="2026-12-31T23:59:59.000Z">
+          <button class="btn btn-secondary btn-sm" onclick="saveEndDate()">Save end date</button>
+        </div>
+        <p style="font-size:0.8rem;color:#888;margin-top:12px;">
+          When contest is ended <em>and</em> withdrawals enabled, users see an active Withdraw button on Profile.
+        </p>
+      </section>
+
+      <!-- Withdrawal queue -->
+      <section class="card" style="margin-top:24px;">
+        <h2>Withdrawal requests</h2>
+        <p style="font-size:0.85rem;color:#aaa;margin-bottom:12px;">Logged when users submit withdraw after unlock. Process payouts off-platform / airdrop.</p>
+        <div style="overflow-x:auto;">
+          <table class="leaderboard-table" id="a-withdraw-table">
+            <thead>
+              <tr><th>Time</th><th>User</th><th>Points</th><th>Claim address</th></tr>
+            </thead>
+            <tbody id="a-withdraw-body"></tbody>
+          </table>
+        </div>
+        <button class="btn btn-secondary btn-sm mt-20" onclick="clearWithdrawals()">Clear request log</button>
+      </section>
+
+      <!-- Users registry -->
+      <section class="card card-dark" style="margin-top:24px;">
+        <h2>Users (this browser registry)</h2>
+        <p style="font-size:0.8rem;color:#888;margin-bottom:12px;">
+          Client-side only — shows accounts created on devices that share this storage. Full multi-user admin needs a backend.
+        </p>
+        <div style="overflow-x:auto;">
+          <table class="leaderboard-table">
+            <thead>
+              <tr><th>User</th><th>Points</th><th>Type</th><th>Claim</th><th>Withdraw?</th></tr>
+            </thead>
+            <tbody id="a-users-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tools -->
+      <section class="card" style="margin-top:24px;">
+        <h2>Tools</h2>
+        <div class="username-form" style="max-width:420px;">
+          <label style="font-size:0.8rem;color:#aaa;">Grant Spark Points to username</label>
+          <input type="text" id="a-grant-user" placeholder="username">
+          <input type="number" id="a-grant-amt" placeholder="amount" value="100">
+          <button class="btn btn-primary btn-sm" onclick="doGrant()">Grant points</button>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;">
+          <button class="btn btn-secondary btn-sm" onclick="doResetMining()">Reset current mining timer</button>
+          <button class="btn btn-secondary btn-sm" onclick="refreshAdmin()">Refresh data</button>
+        </div>
+        <p style="font-size:0.75rem;color:#666;margin-top:14px;">
+          Grant updates the live user if that username is logged in on this browser; otherwise registry + leaderboard only.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer"><p>Blondie Token Admin · not linked in public nav</p></footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function showDash(on) {
+      document.getElementById('admin-login').classList.toggle('hidden', on);
+      document.getElementById('admin-dash').classList.toggle('hidden', !on);
+    }
+
+    async function doAdminLogin() {
+      const pass = document.getElementById('admin-pass').value;
+      const user = 'admin';
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled()) {
+          await BlondieAPI.adminLogin(user, pass);
+          // also set local session for offline helpers
+          adminLogin(pass);
+          showToast('Admin connected to server', 'success');
+          showDash(true);
+          refreshAdmin();
+          return;
+        }
+      } catch (e) {
+        showToast(e.data?.error === 'invalid_credentials' ? 'Wrong password' : (e.message || 'Login failed'), 'error');
+        // fall through to local if server down
+        if (e.message !== 'NO_API' && e.status === 401) return;
+      }
+      if (adminLogin(pass)) {
+        showToast('Admin session (local only)', 'success');
+        showDash(true);
+        refreshAdmin();
+      } else {
+        showToast('Wrong password', 'error');
+      }
+    }
+
+    function doAdminLogout() {
+      adminLogout();
+      showDash(false);
+      showToast('Logged out', 'info');
+    }
+
+    async function refreshAdmin() {
+      let c = getCompetition();
+      let reqs = getWithdrawalRequests().slice().reverse();
+      let users = getUsersRegistry().slice().sort((a,b) => (b.sparkPoints||0)-(a.sparkPoints||0));
+
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled() && localStorage.getItem('blondie_admin_jwt')) {
+          const remote = await BlondieAPI.getCompetition();
+          c = {
+            ended: remote.ended,
+            withdrawalsEnabled: remote.withdrawalsEnabled,
+            endDate: remote.endDate
+          };
+          // sync local competition flags so Profile UI matches
+          if (typeof adminSetCompetition === 'function') {
+            adminSetCompetition({
+              ended: remote.ended,
+              withdrawalsEnabled: remote.withdrawalsEnabled,
+              endDate: remote.endDate
+            });
+          }
+          const w = await BlondieAPI.listWithdrawals();
+          reqs = (w.withdrawals || []).map(r => ({
+            at: new Date(r.created_at || r.createdAt || Date.now()).getTime(),
+            username: r.username,
+            points: r.points,
+            claimAddress: r.claim_address || r.claimAddress,
+            status: r.status,
+            id: r.id
+          }));
+          const u = await BlondieAPI.listUsers();
+          users = (u.users || []).map(x => ({
+            username: x.username,
+            sparkPoints: x.sparkPoints,
+            walletType: x.walletType,
+            custodial: x.custodial,
+            claimAddress: x.claimAddress,
+            withdrawalRequested: x.withdrawalRequested
+          }));
+        }
+      } catch (e) {
+        console.warn('Admin API refresh fallback', e);
+      }
+
+      document.getElementById('a-ended').textContent = c.ended || (typeof isCompetitionEnded === 'function' && isCompetitionEnded()) ? 'YES' : 'NO';
+      document.getElementById('a-ended').style.color = (c.ended || (typeof isCompetitionEnded === 'function' && isCompetitionEnded())) ? '#00ff88' : 'var(--red-accent)';
+      document.getElementById('a-withdraw').textContent = c.withdrawalsEnabled ? 'ENABLED' : 'OFF';
+      document.getElementById('a-withdraw').style.color = c.withdrawalsEnabled ? '#00ff88' : 'var(--red-accent)';
+      document.getElementById('a-enddate').textContent = (c.endDate || '—').toString().replace('.000Z', 'Z');
+      document.getElementById('a-end-input').value = c.endDate || '';
+
+      const wbody = document.getElementById('a-withdraw-body');
+      wbody.innerHTML = reqs.length ? reqs.map(r => `
+        <tr>
+          <td style="font-size:0.75rem;">${r.at ? new Date(r.at).toLocaleString() : '—'}</td>
+          <td>@${r.username}</td>
+          <td style="color:var(--neon-cyan);">${(r.points||0).toLocaleString()}</td>
+          <td style="font-size:0.75rem;word-break:break-all;">${r.claimAddress || '—'}
+            ${r.id && r.status === 'pending' ? '<br><button class="btn btn-primary btn-sm" style="margin-top:4px" onclick="payWithdrawal(\''+r.id+'\')">Pay</button>' : (r.status ? ' <span style="color:#888">('+r.status+')</span>' : '')}
+          </td>
+        </tr>
+      `).join('') : '<tr><td colspan="4" style="color:#666;">No requests yet</td></tr>';
+
+      const ubody = document.getElementById('a-users-body');
+      ubody.innerHTML = users.length ? users.map(u => `
+        <tr>
+          <td>@${u.username}</td>
+          <td style="color:var(--neon-cyan);">${(u.sparkPoints||0).toLocaleString()}</td>
+          <td>${u.walletType || (u.custodial ? 'custodial' : '—')}</td>
+          <td style="font-size:0.75rem;">${u.claimAddress ? u.claimAddress.slice(0,4)+'…'+u.claimAddress.slice(-4) : '—'}</td>
+          <td>${u.withdrawalRequested ? 'yes' : '—'}</td>
+        </tr>
+      `).join('') : '<tr><td colspan="5" style="color:#666;">No users in registry</td></tr>';
+    }
+
+    async function payWithdrawal(id) {
+      try {
+        const r = await BlondieAPI.payWithdrawal(id);
+        showToast(r.simulated ? 'Marked paid (simulated)' : 'Paid on-chain', 'success');
+        refreshAdmin();
+      } catch (e) {
+        showToast(e.data?.message || e.message || 'Pay failed', 'error');
+      }
+    }
+
+    async function toggleEnded() {
+      const c = getCompetition();
+      const next = !c.ended;
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled() && localStorage.getItem('blondie_admin_jwt')) {
+          await BlondieAPI.patchCompetition({ ended: next });
+        }
+      } catch (e) { console.warn(e); }
+      adminSetCompetition({ ended: next });
+      showToast('Contest ended = ' + next, 'success');
+      refreshAdmin();
+    }
+
+    async function toggleWithdrawals() {
+      const c = getCompetition();
+      const next = !c.withdrawalsEnabled;
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled() && localStorage.getItem('blondie_admin_jwt')) {
+          await BlondieAPI.patchCompetition({ withdrawalsEnabled: next });
+        }
+      } catch (e) { console.warn(e); }
+      adminSetCompetition({ withdrawalsEnabled: next });
+      showToast('Withdrawals = ' + next, 'success');
+      refreshAdmin();
+    }
+
+    async function saveEndDate() {
+      const v = document.getElementById('a-end-input').value.trim();
+      if (!v) return showToast('Enter ISO date', 'error');
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled() && localStorage.getItem('blondie_admin_jwt')) {
+          await BlondieAPI.patchCompetition({ endDate: v });
+        }
+      } catch (e) { console.warn(e); }
+      adminSetCompetition({ endDate: v });
+      showToast('End date saved', 'success');
+      refreshAdmin();
+    }
+
+    async function doGrant() {
+      const u = document.getElementById('a-grant-user').value.trim();
+      const amt = parseInt(document.getElementById('a-grant-amt').value, 10);
+      if (!u || !amt) return showToast('Username + amount required', 'error');
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled() && localStorage.getItem('blondie_admin_jwt')) {
+          const data = await BlondieAPI.grantPoints(u, amt);
+          showToast('Granted on server. Total: ' + data.user.sparkPoints, 'success');
+          refreshAdmin();
+          return;
+        }
+      } catch (e) {
+        showToast(e.data?.error || e.message || 'Grant failed', 'error');
+      }
+      const r = adminGrantPoints(u, amt);
+      if (r.ok) showToast('Granted (local). Total: ' + r.points, 'success');
+      else showToast('User not found', 'error');
+      refreshAdmin();
+    }
+
+    function doResetMining() {
+      adminResetMining();
+      showToast('Mining state cleared on this browser', 'success');
+    }
+
+    function clearWithdrawals() {
+      if (!confirm('Clear all withdrawal request logs?')) return;
+      localStorage.setItem('blondie_withdrawals', '[]');
+      showToast('Cleared', 'info');
+      refreshAdmin();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (isAdminLoggedIn()) {
+        showDash(true);
+        refreshAdmin();
+      }
+      document.getElementById('admin-pass').addEventListener('keydown', e => {
+        if (e.key === 'Enter') doAdminLogin();
+      });
+    });
+  </script>
+</body>
+</html>

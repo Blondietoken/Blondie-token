@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blondie Token Miner – Mine Spark Points every 12 hours. Cosmic cyberpunk mining simulation.">
+  <title>Miner – Blondie Token</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏</text></svg>">
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="bg-stars"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">BLONDIE<span>✦</span></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="spark.html">Spark Points</a></li>
+        <li><a href="miner.html" class="active">Miner</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="nav-points hidden" id="nav-points">✦ 0</span>
+        <span class="nav-mining-badge" id="nav-mining-badge">⛏ MINING</span>
+        <span class="nav-points hidden" id="nav-user" style="border-color:var(--neon-pink);color:var(--neon-pink)"></span>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="miner-container">
+      <h1>⛏ Cosmic Miner</h1>
+      <p style="color:var(--text-muted);margin-bottom:30px;">Mine for 12 hours → Claim Spark Points. Repeat infinitely.</p>
+
+      <!-- MAIN MINING CARD -->
+      <div class="miner-status-card" id="miner-card">
+        <!-- Locked overlay (not logged in) -->
+        <div class="locked-overlay" id="locked-overlay">
+          <p>🔒 You must connect wallet & create username first</p>
+          <a href="profile.html" class="btn btn-primary">Go to Profile →</a>
+        </div>
+
+        <div id="miner-content">
+          <h3 id="status-label">Ready to Mine</h3>
+          <div class="timer-display" id="timer">00:00:00</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+          <div class="hashrate-sim" id="hashrate">Hashrate: idle</div>
+
+          <div style="margin-top:28px;">
+            <button class="btn btn-primary" id="mine-btn" onclick="handleMineAction()">START MINING</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="mining-stats" id="mining-stats">
+        <div class="stat-box">
+          <div class="stat-value" id="stat-points">0</div>
+          <div class="stat-label">Total Spark Points</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="stat-mined">0</div>
+          <div class="stat-label">Total Mined</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="stat-claims">0</div>
+          <div class="stat-label">Total Claims</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="stat-last">—</div>
+          <div class="stat-label">Last Reward</div>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="card mt-20" style="text-align:left;">
+        <h3>How Mining Works</h3>
+        <ul style="list-style:none;padding:0;color:#ccc;">
+          <li style="margin-bottom:10px;">✦ Connect wallet + set username on Profile</li>
+          <li style="margin-bottom:10px;">✦ Hit <strong style="color:var(--neon-cyan)">START MINING</strong> — 12h countdown begins</li>
+          <li style="margin-bottom:10px;">✦ When timer hits zero → <strong style="color:var(--red-accent)">CLAIM REWARDS</strong></li>
+          <li style="margin-bottom:10px;">✦ Earn 100–500 random Spark Points + simulated $BLONDIE</li>
+          <li style="margin-bottom:10px;">✦ Start a new cycle immediately after claiming</li>
+          <li>✦ Progress is saved — close the tab, come back later</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 Blondie Token · Cosmic Miner</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let timerInterval = null;
+    let hashInterval = null;
+
+    function refreshMinerUI() {
+      const loggedIn = isLoggedIn();
+      const overlay = document.getElementById('locked-overlay');
+      const card = document.getElementById('miner-card');
+      const btn = document.getElementById('mine-btn');
+      const timerEl = document.getElementById('timer');
+      const bar = document.getElementById('progress-bar');
+      const statusLabel = document.getElementById('status-label');
+      const hashrateEl = document.getElementById('hashrate');
+
+      // Stats
+      const user = getUser();
+      const mining = getMiningState();
+      document.getElementById('stat-points').textContent = user ? (user.sparkPoints || 0).toLocaleString() : '0';
+      document.getElementById('stat-mined').textContent = user ? (user.totalMined || 0).toLocaleString() : '0';
+      document.getElementById('stat-claims').textContent = user ? (user.totalClaims || 0) : '0';
+      document.getElementById('stat-last').textContent = mining.lastReward ? `+${mining.lastReward}` : '—';
+
+      if (!loggedIn) {
+        overlay.classList.remove('hidden');
+        return;
+      }
+      overlay.classList.add('hidden');
+
+      const progress = getMiningProgress();
+
+      if (progress.canClaim) {
+        // Ready to claim
+        card.classList.remove('mining');
+        card.classList.add('ready');
+        statusLabel.textContent = '🎉 Mining Complete!';
+        statusLabel.style.color = '#00ff88';
+        timerEl.textContent = '00:00:00';
+        timerEl.classList.remove('mining');
+        bar.style.width = '100%';
+        bar.classList.remove('mining');
+        bar.style.background = 'linear-gradient(90deg, #00ff88, #00cc66)';
+        hashrateEl.innerHTML = 'Status: <span style="color:#00ff88">READY TO CLAIM</span>';
+        btn.textContent = 'CLAIM REWARDS';
+        btn.className = 'btn btn-claim';
+        btn.disabled = false;
+        stopHashSim();
+      } else if (progress.isMining) {
+        // Actively mining
+        card.classList.add('mining');
+        card.classList.remove('ready');
+        statusLabel.textContent = 'Mining in progress...';
+        statusLabel.style.color = 'var(--red-accent)';
+        timerEl.textContent = formatTime(progress.remaining);
+        timerEl.classList.add('mining');
+        bar.style.width = progress.progress + '%';
+        bar.classList.add('mining');
+        btn.textContent = 'MINING...';
+        btn.className = 'btn btn-primary';
+        btn.disabled = true;
+        startHashSim();
+      } else {
+        // Idle
+        card.classList.remove('mining', 'ready');
+        statusLabel.textContent = 'Ready to Mine';
+        statusLabel.style.color = 'var(--neon-cyan)';
+        timerEl.textContent = '12:00:00';
+        timerEl.classList.remove('mining');
+        bar.style.width = '0%';
+        bar.classList.remove('mining');
+        bar.style.background = '';
+        hashrateEl.innerHTML = 'Hashrate: <span style="color:var(--text-muted)">idle</span>';
+        btn.textContent = 'START MINING';
+        btn.className = 'btn btn-primary';
+        btn.disabled = false;
+        stopHashSim();
+      }
+    }
+
+    function handleMineAction() {
+      if (!isLoggedIn()) {
+        showToast('Connect wallet & create username first!', 'error');
+        window.location.href = 'profile.html';
+        return;
+      }
+      const progress = getMiningProgress();
+      if (progress.canClaim) {
+        // Claim
+        const result = claimMiningRewards();
+        if (result.ok) {
+          showToast(`Claimed +${result.points} Spark Points & ${result.tokens} $BLONDIE!`, 'success');
+          refreshMinerUI();
+          updateNavbar();
+        }
+      } else if (!progress.isMining) {
+        // Start
+        const result = startMining();
+        if (result.ok) {
+          showToast('Mining started! Come back in 12 hours ⛏', 'success');
+          refreshMinerUI();
+          startTimerLoop();
+        } else if (result.error === 'already_mining') {
+          showToast('Already mining!', 'error');
+        }
+      }
+    }
+
+    function startTimerLoop() {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        refreshMinerUI();
+        updateNavbar();
+      }, 1000);
+    }
+
+    function startHashSim() {
+      if (hashInterval) return;
+      const el = document.getElementById('hashrate');
+      hashInterval = setInterval(() => {
+        const rate = (Math.random() * 40 + 10).toFixed(1);
+        el.innerHTML = `Hashrate: <span class="hash">${rate} MH/s</span> · <span class="hash">${randomHash()}</span>`;
+      }, 400);
+    }
+
+    function stopHashSim() {
+      if (hashInterval) {
+        clearInterval(hashInterval);
+        hashInterval = null;
+      }
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      refreshMinerUI();
+      const progress = getMiningProgress();
+      if (progress.isMining) {
+        startTimerLoop();
+      }
+    });
+  </script>
+</body>
+</html>

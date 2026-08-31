@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blondie Token Profile – Register with username or connect Solana wallet. Generated wallet or Phantom / Solflare.">
+  <title>Profile – Blondie Token</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👤</text></svg>">
+  <!-- Solana Web3.js for real keypair generation -->
+  <script src="https://unpkg.com/@solana/web3.js@1.95.4/lib/index.iife.min.js"></script>
+</head>
+<body>
+  <div class="bg-overlay"></div>
+  <div class="bg-stars"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">BLONDIE<span>✦</span></a>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="spark.html">Spark Points</a></li>
+        <li><a href="miner.html">Miner</a></li>
+        <li><a href="profile.html" class="active">Profile</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+      </ul>
+      <div class="nav-status">
+        <span class="nav-points hidden" id="nav-points">✦ 0</span>
+        <span class="nav-mining-badge" id="nav-mining-badge">⛏ MINING</span>
+        <span class="nav-points hidden" id="nav-user" style="border-color:var(--neon-pink);color:var(--neon-pink)"></span>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <h1 style="text-align:center;">Profile</h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:30px;">
+      Safe custodial account · rewards locked until contest ends
+    </p>
+
+    <!-- ========== STATE: NOT LOGGED IN ========== -->
+    <div id="state-disconnected">
+      <div class="profile-card">
+        <div class="avatar" style="font-size:2rem;">✦</div>
+        <h2>Join Blondie Token</h2>
+        <p style="color:#aaa;margin-bottom:16px;font-size:0.95rem;">
+          <strong style="color:var(--neon-cyan);">Every player gets a custodial account.</strong>
+          Spark Points stay in the program until the competition ends — then you withdraw to your own wallet.
+        </p>
+
+        <div style="background:rgba(0,234,255,0.08);border:1px solid rgba(0,234,255,0.35);border-radius:12px;padding:18px;margin-bottom:14px;text-align:left;font-size:0.85rem;color:#ccc;">
+          <strong style="color:var(--neon-pink);">Security</strong>
+          <ul style="margin:8px 0 0 18px;padding:0;">
+            <li>We never hold or ask for your Phantom seed phrase</li>
+            <li>Internal account has no exportable private key</li>
+            <li>Payout address is set only after you sign in your wallet</li>
+          </ul>
+        </div>
+
+        <!-- Option 1: Username only -->
+        <div style="background:rgba(0,234,255,0.08);border:1px solid rgba(0,234,255,0.35);border-radius:12px;padding:20px;margin-bottom:16px;text-align:left;">
+          <h3 style="margin-bottom:8px;font-size:1.05rem;">Quick start — username only</h3>
+          <p style="font-size:0.85rem;color:#aaa;margin-bottom:14px;">
+            Fastest way. Create your custodial account now; add a payout wallet later when you want.
+          </p>
+          <div class="username-form">
+            <input type="text" id="reg-username" placeholder="Choose username (3–20 chars)" maxlength="20" autocomplete="username">
+            <button class="btn btn-primary" id="btn-register" onclick="handleRegisterWithoutWallet()">
+              Create custodial account
+            </button>
+          </div>
+        </div>
+
+        <!-- Option 2: Wallet + username -->
+        <div style="background:rgba(255,153,204,0.08);border:1px solid rgba(255,153,204,0.35);border-radius:12px;padding:20px;text-align:left;">
+          <h3 style="margin-bottom:8px;font-size:1.05rem;">Or start with your wallet</h3>
+          <p style="font-size:0.85rem;color:#aaa;margin-bottom:14px;">
+            Connect &amp; <strong>sign</strong> with Phantom/Solflare. You still get a <strong>custodial</strong> rewards account —
+            your wallet is only used as the verified payout address.
+          </p>
+          <button class="btn btn-pink" id="btn-connect" onclick="handleConnectExternal()" style="width:100%;">
+            Connect &amp; sign Phantom / Solflare
+          </button>
+          <p id="wallet-detect-hint" style="font-size:0.75rem;color:#666;margin-top:10px;"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== STATE: WALLET SIGNED, NEED USERNAME ========== -->
+    <div class="profile-card hidden" id="state-username">
+      <div class="avatar" id="avatar-pending">?</div>
+      <h2>Choose your username</h2>
+      <p style="color:#aaa;margin-bottom:8px;">Wallet verified — custodial account will be created next</p>
+      <div class="wallet-address" id="wallet-pending"></div>
+      <p style="color:var(--neon-pink);margin:16px 0;font-size:0.9rem;">
+        This address becomes your claim/payout wallet. Points still stay custodial until the contest ends.
+      </p>
+      <div class="username-form">
+        <input type="text" id="username-input" placeholder="username (3-20 chars)" maxlength="20" autocomplete="username">
+        <button class="btn btn-primary" onclick="handleSetUsername()">Create custodial account</button>
+      </div>
+      <button class="btn btn-secondary btn-sm mt-20" onclick="handleDisconnect()">Cancel</button>
+    </div>
+
+    <!-- ========== STATE: FULL PROFILE ========== -->
+    <div class="profile-card hidden" id="state-profile">
+      <div class="avatar" id="avatar-full">B</div>
+      <h2 id="display-username">@username</h2>
+
+      <div style="margin:8px 0 4px;">
+        <span id="wallet-type-badge" style="font-size:0.75rem;padding:3px 10px;border-radius:12px;background:rgba(0,234,255,0.15);color:var(--neon-cyan);border:1px solid rgba(0,234,255,0.4);"></span>
+      </div>
+      <div class="wallet-address" id="wallet-full"></div>
+      <div id="linked-wallet-row" class="hidden" style="margin-top:6px;">
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:4px;">Linked external wallet</p>
+        <div class="wallet-address" id="linked-wallet-full" style="font-size:0.8rem;"></div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-box">
+          <div class="stat-value" id="prof-points">0</div>
+          <div class="stat-label">Spark Points</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="prof-mined">0</div>
+          <div class="stat-label">Total Mined</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="prof-claims">0</div>
+          <div class="stat-label">Claims</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value" id="prof-mining">Idle</div>
+          <div class="stat-label">Mining Status</div>
+        </div>
+      </div>
+
+      <div style="margin:20px 0;">
+        <p style="font-size:0.85rem;color:var(--text-muted);">Your referral link</p>
+        <div class="referral-link" id="ref-link" style="font-size:0.8rem;"></div>
+        <button class="btn btn-secondary btn-sm" onclick="copyRefLink()">Copy Link</button>
+      </div>
+
+      <!-- Custodial / withdrawal -->
+      <div id="custodial-panel" style="margin:20px 0;padding:16px;background:rgba(0,234,255,0.07);border:1px solid rgba(0,234,255,0.35);border-radius:12px;text-align:left;">
+        <h3 style="font-size:0.95rem;color:var(--neon-cyan);margin-bottom:8px;" id="custody-title">Custodial account</h3>
+        <p style="font-size:0.8rem;color:#aaa;margin-bottom:12px;" id="custody-desc">
+          Your Spark Points are held in-app until the competition ends. You cannot transfer them out early.
+        </p>
+        <p style="font-size:0.8rem;margin-bottom:8px;"><span style="color:var(--text-muted);">Competition:</span> <strong id="comp-status-label">—</strong></p>
+        <p style="font-size:0.8rem;margin-bottom:12px;"><span style="color:var(--text-muted);">Withdrawals:</span> <strong id="withdraw-status-label">Locked</strong></p>
+
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:6px;">Claim / withdrawal address (your Phantom etc.)</p>
+        <div class="username-form" style="margin-bottom:12px;">
+          <input type="text" id="claim-address-input" placeholder="Solana address for payouts" autocomplete="off">
+          <button class="btn btn-secondary btn-sm" onclick="handleSaveClaimAddress()">Save claim address</button>
+        </div>
+        <p id="claim-saved" class="hidden" style="font-size:0.8rem;color:#00ff88;margin-bottom:10px;">Claim address saved</p>
+
+        <button class="btn btn-claim" id="btn-withdraw" disabled onclick="handleWithdraw()">Withdraw rewards</button>
+        <p id="withdraw-msg" style="font-size:0.8rem;color:#aaa;margin-top:10px;"></p>
+
+        <div style="margin-top:14px;">
+          <button class="btn btn-pink btn-sm" id="btn-link-wallet" onclick="handleLinkWallet()">
+            1. Connect &amp; sign with Phantom / Solflare
+          </button>
+          <p id="wallet-verify-status" style="font-size:0.8rem;color:#aaa;margin-top:10px;"></p>
+          <p style="font-size:0.75rem;color:#666;margin-top:6px;">
+            Wallet will ask you to <strong>connect</strong> and <strong>sign a message</strong>.
+            After that the address appears above — click <strong>Save claim address</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+        <a href="miner.html" class="btn btn-primary btn-sm">Miner</a>
+        <a href="spark.html" class="btn btn-pink btn-sm">Spark Points</a>
+        <button class="btn btn-secondary btn-sm" onclick="handleDisconnect()">Log out</button>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="card card-dark" style="max-width:520px;margin:30px auto;">
+      <h3>How security works</h3>
+      <ul style="list-style:none;padding:0;color:#ccc;font-size:0.9rem;">
+        <li style="margin-bottom:8px;">✦ <strong style="color:var(--neon-cyan);">Always custodial</strong> — every user gets an internal rewards account</li>
+        <li style="margin-bottom:8px;">✦ Your Phantom is only for <strong>verified payout</strong> (connect + sign)</li>
+        <li style="margin-bottom:8px;">✦ We never ask for seed phrases or private keys</li>
+        <li style="margin-bottom:8px;">✦ Points cannot leave until the competition ends and admin opens withdrawals</li>
+        <li style="margin-bottom:8px;">✦ Claim address locks after you request a withdrawal</li>
+        <li>✦ Keep using the same browser/device or server login so your progress stays linked</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025–2026 Blondie Token · Profile</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function renderProfile() {
+      const user = getUser();
+      const disc = document.getElementById('state-disconnected');
+      const userForm = document.getElementById('state-username');
+      const full = document.getElementById('state-profile');
+
+      disc.classList.add('hidden');
+      userForm.classList.add('hidden');
+      full.classList.add('hidden');
+
+      const detected = typeof detectInjectedWallet === 'function' ? detectInjectedWallet() : null;
+      const hint = document.getElementById('wallet-detect-hint');
+      if (hint) {
+        hint.textContent = detected
+          ? 'Detected: ' + detected.name
+          : 'No wallet extension detected — you can still create an account above.';
+      }
+
+      const pending = typeof getPendingVerifiedWallet === 'function' ? getPendingVerifiedWallet() : null;
+
+      if ((!user || !user.username) && !pending) {
+        disc.classList.remove('hidden');
+        return;
+      }
+
+      if ((!user || !user.username) && pending) {
+        userForm.classList.remove('hidden');
+        document.getElementById('wallet-pending').textContent = pending.publicKey;
+        document.getElementById('avatar-pending').textContent = '✓';
+        return;
+      }
+
+      if (user && user.wallet && !user.username) {
+        userForm.classList.remove('hidden');
+        document.getElementById('wallet-pending').textContent = user.wallet;
+        document.getElementById('avatar-pending').textContent = '?';
+        return;
+      }
+
+      full.classList.remove('hidden');
+      const initial = (user.displayName || user.username || '?').charAt(0).toUpperCase();
+      document.getElementById('avatar-full').textContent = initial;
+      document.getElementById('display-username').textContent = '@' + (user.displayName || user.username);
+
+      document.getElementById('wallet-full').textContent = user.wallet;
+      document.getElementById('wallet-full').title = user.wallet;
+
+      const linkedRow = document.getElementById('linked-wallet-row');
+      if (user.linkedWallet) {
+        linkedRow.classList.remove('hidden');
+        document.getElementById('linked-wallet-full').textContent = user.linkedWallet;
+      } else {
+        linkedRow.classList.add('hidden');
+      }
+
+      document.getElementById('prof-points').textContent = (user.sparkPoints || 0).toLocaleString();
+      document.getElementById('prof-mined').textContent = (user.totalMined || 0).toLocaleString();
+      document.getElementById('prof-claims').textContent = user.totalClaims || 0;
+
+      const progress = getMiningProgress();
+      const miningEl = document.getElementById('prof-mining');
+      if (progress.canClaim) {
+        miningEl.textContent = 'Claim!';
+        miningEl.style.color = '#00ff88';
+      } else if (progress.isMining) {
+        miningEl.textContent = formatTime(progress.remaining);
+        miningEl.style.color = 'var(--red-accent)';
+      } else {
+        miningEl.textContent = 'Idle';
+        miningEl.style.color = 'var(--neon-cyan)';
+      }
+
+      document.getElementById('ref-link').textContent = getReferralLink() || '—';
+
+      // Custody / competition panel
+      updateCustodyPanel(user);
+
+      // Badge
+      const badge = document.getElementById('wallet-type-badge');
+      if (badge) {
+        if (user.custodial || user.walletType === 'custodial') {
+          badge.textContent = user.walletType === 'linked' ? 'Custodial + linked wallet' : 'Custodial account';
+          badge.style.color = 'var(--neon-pink)';
+        } else if (user.walletType === 'external') {
+          badge.textContent = (user.walletProvider || 'External') + ' wallet';
+          badge.style.color = 'var(--neon-cyan)';
+        }
+      }
+    }
+
+    function updateCustodyPanel(user) {
+      const ended = isCompetitionEnded();
+      const open = areWithdrawalsEnabled();
+      const compLabel = document.getElementById('comp-status-label');
+      const wLabel = document.getElementById('withdraw-status-label');
+      const btn = document.getElementById('btn-withdraw');
+      const msg = document.getElementById('withdraw-msg');
+      const claimInput = document.getElementById('claim-address-input');
+
+      if (compLabel) compLabel.textContent = ended ? 'ENDED' : 'Active';
+      if (compLabel) compLabel.style.color = ended ? '#00ff88' : 'var(--neon-cyan)';
+      if (wLabel) {
+        wLabel.textContent = open ? 'OPEN' : 'Locked until contest ends';
+        wLabel.style.color = open ? '#00ff88' : 'var(--red-accent)';
+      }
+      if (claimInput && user.claimAddress) {
+        claimInput.value = user.claimAddress;
+        const saved = document.getElementById('claim-saved');
+        if (saved) saved.classList.remove('hidden');
+      }
+      if (btn) {
+        btn.disabled = !open || !user.claimAddress || (user.sparkPoints || 0) <= 0 || user.withdrawalRequested;
+        if (user.withdrawalRequested) {
+          btn.textContent = 'Withdrawal requested';
+          if (msg) msg.textContent = 'Your request is logged. Payout to ' + truncateAddress(user.claimAddress) + ' after processing.';
+        } else if (!ended) {
+          btn.textContent = 'Withdraw (locked)';
+          if (msg) msg.textContent = 'Rewards stay custodial until the competition ends.';
+        } else if (!open) {
+          btn.textContent = 'Withdraw (awaiting admin)';
+          if (msg) msg.textContent = 'Contest ended — waiting for admin to enable withdrawals.';
+        } else {
+          btn.textContent = 'Withdraw rewards';
+          if (msg) msg.textContent = open ? 'You can submit a withdrawal request now.' : '';
+        }
+      }
+    }
+
+    async function handleRegisterWithoutWallet() {
+      const input = document.getElementById('reg-username');
+      const name = input.value.trim();
+      if (name.length < 3) {
+        showToast('Username must be at least 3 characters', 'error');
+        return;
+      }
+      const btn = document.getElementById('btn-register');
+      btn.disabled = true;
+      btn.textContent = 'Creating wallet...';
+
+      try {
+        // Backend mode
+        if (window.BlondieAPI && BlondieAPI.enabled()) {
+          const ref = sessionStorage.getItem('blondie_pending_ref') || new URLSearchParams(location.search).get('ref');
+          const data = await BlondieAPI.register(name, ref || undefined);
+          // Mirror to localStorage so Miner/Spark still work offline-style
+          saveUser({
+            username: data.user.username,
+            displayName: data.user.displayName || data.user.username,
+            wallet: data.user.wallet,
+            walletType: data.user.walletType || 'custodial',
+            custodial: true,
+            claimAddress: data.user.claimAddress || null,
+            linkedWallet: data.user.linkedWallet || null,
+            sparkPoints: data.user.sparkPoints || 0,
+            totalMined: data.user.totalMined || 0,
+            totalClaims: data.user.totalClaims || 0,
+            completedTasks: data.user.completedTasks || [],
+            withdrawalRequested: !!data.user.withdrawalRequested
+          });
+          sessionStorage.removeItem('blondie_pending_ref');
+          showToast('Custodial account created on server!', 'success');
+          renderProfile();
+          updateNavbar();
+          btn.disabled = false;
+          btn.textContent = 'Create Account + Wallet';
+          return;
+        }
+      } catch (e) {
+        console.warn('API register failed, falling back to local', e);
+        showToast('Server unavailable — using local mode', 'info');
+      }
+
+      await new Promise(r => setTimeout(r, 100));
+      const result = registerWithoutWallet(name);
+      if (result.ok) {
+        showToast('Custodial account created (local)!', 'success');
+        renderProfile();
+        updateNavbar();
+      } else if (result.error === 'username_short') {
+        showToast('Username too short', 'error');
+      } else if (result.error === 'already_registered') {
+        showToast('Already registered on this device', 'error');
+      } else {
+        showToast('Registration failed', 'error');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Create Account + Wallet';
+    }
+
+    async function handleConnectExternal() {
+      const btn = document.getElementById('btn-connect');
+      btn.disabled = true;
+      btn.textContent = 'Connecting...';
+      try {
+        const result = await connectExternalWallet();
+        if (!result.ok) {
+          showToast(result.message || 'Could not connect wallet', 'error');
+          btn.disabled = false;
+          btn.textContent = 'Connect Phantom / Solflare';
+          return;
+        }
+        if (result.needsUsername) {
+          showToast((result.signed ? 'Signed! ' : '') + 'Now choose a username', 'success');
+        } else if (result.linked) {
+          // Fill claim field for existing users
+          const input = document.getElementById('claim-address-input');
+          if (input && result.publicKey) input.value = result.publicKey;
+          showToast(result.signed ? 'Signed — save claim address below' : 'Connected — save claim address', 'success');
+        } else {
+          showToast((result.provider || 'Wallet') + ' ready', 'success');
+        }
+        renderProfile();
+        updateNavbar();
+      } catch (e) {
+        showToast('Connection failed', 'error');
+      }
+      btn.disabled = false;
+      btn.textContent = 'Connect Phantom / Solflare';
+    }
+
+    function handleSetUsername() {
+      const input = document.getElementById('username-input');
+      const name = input.value.trim();
+      if (name.length < 3) {
+        showToast('Username must be at least 3 characters', 'error');
+        return;
+      }
+      if (setUsername(name)) {
+        showToast('Welcome, @' + name + '!', 'success');
+        renderProfile();
+        updateNavbar();
+      } else {
+        showToast('Invalid username', 'error');
+      }
+    }
+
+    async function handleLinkWallet() {
+      const btn = document.getElementById('btn-link-wallet');
+      const status = document.getElementById('wallet-verify-status');
+      const input = document.getElementById('claim-address-input');
+      btn.disabled = true;
+      btn.textContent = 'Approve in wallet...';
+      if (status) {
+        status.style.color = 'var(--neon-cyan)';
+        status.textContent = 'Waiting for wallet connect + signature...';
+      }
+
+      const result = await linkExternalWallet();
+      if (result.ok && result.publicKey) {
+        // Fill claim address field — user confirms with Save
+        if (input) {
+          input.value = result.publicKey;
+          input.focus();
+        }
+        if (status) {
+          status.style.color = '#00ff88';
+          status.textContent = result.signed
+            ? '✓ Signed & verified: ' + result.publicKey.slice(0, 4) + '…' + result.publicKey.slice(-4) + ' — now click Save claim address'
+            : '✓ Connected: ' + result.publicKey.slice(0, 4) + '…' + result.publicKey.slice(-4) + ' — now click Save claim address';
+        }
+        showToast(result.signed ? 'Signature OK — save the address below' : 'Connected — save the address below', 'success');
+        // highlight save button area
+        const saveHint = document.getElementById('claim-saved');
+        if (saveHint) {
+          saveHint.classList.add('hidden');
+        }
+        updateNavbar();
+      } else {
+        if (status) {
+          status.style.color = 'var(--red-accent)';
+          status.textContent = result.message || 'Failed — install Phantom/Solflare and try again';
+        }
+        showToast(result.message || 'Link failed', 'error');
+      }
+      btn.disabled = false;
+      btn.textContent = '1. Connect & sign with Phantom / Solflare';
+    }
+
+    async function handleSaveClaimAddress() {
+      const input = document.getElementById('claim-address-input');
+      const addr = input.value.trim();
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled() && localStorage.getItem('blondie_user_jwt')) {
+          const data = await BlondieAPI.setClaimAddress(addr);
+          const u = getUser() || {};
+          u.claimAddress = data.user.claimAddress || addr;
+          saveUser(u);
+          document.getElementById('claim-saved').classList.remove('hidden');
+          showToast('Claim address saved on server', 'success');
+          renderProfile();
+          return;
+        }
+      } catch (e) {
+        showToast(e.data?.error || e.message || 'Save failed', 'error');
+        return;
+      }
+      const u = getUser();
+      const verified = !!(u && u.linkedWallet && u.linkedWallet === addr && u.claimVerified);
+      const result = setClaimAddress(addr, { verified: verified || (u && u.lastWalletSignature && u.linkedWallet === addr) });
+      if (result.ok) {
+        // If address matches last signed linked wallet, mark verified
+        if (u && u.linkedWallet === addr) {
+          const uu = getUser();
+          uu.claimVerified = true;
+          saveUser(uu);
+        }
+        document.getElementById('claim-saved').classList.remove('hidden');
+        showToast('Claim address saved', 'success');
+        renderProfile();
+      } else {
+        showToast(result.message || 'Enter a valid Solana address', 'error');
+      }
+    }
+
+    async function handleWithdraw() {
+      try {
+        if (window.BlondieAPI && BlondieAPI.enabled() && localStorage.getItem('blondie_user_jwt')) {
+          const data = await BlondieAPI.withdraw();
+          const u = getUser() || {};
+          u.withdrawalRequested = true;
+          saveUser(u);
+          showToast('Withdrawal requested for ' + data.points + ' Spark Points', 'success');
+          renderProfile();
+          return;
+        }
+      } catch (e) {
+        showToast(e.data?.message || e.data?.error || e.message || 'Withdraw failed', 'error');
+        return;
+      }
+      const result = requestWithdrawal();
+      if (result.ok) {
+        showToast('Withdrawal requested for ' + result.points + ' Spark Points', 'success');
+        renderProfile();
+      } else {
+        showToast(result.message || 'Withdrawal not available', 'error');
+      }
+    }
+
+    function handleDisconnect() {
+      if (confirm('Log out from this device?')) {
+        if (typeof clearPendingVerifiedWallet === 'function') clearPendingVerifiedWallet();
+        disconnectWallet();
+        showToast('Logged out', 'info');
+        renderProfile();
+        updateNavbar();
+      }
+    }
+
+    function copyRefLink() {
+      const link = document.getElementById('ref-link').textContent;
+      if (link && link !== '—') {
+        navigator.clipboard.writeText(link).then(() => showToast('Referral link copied!', 'success'))
+          .catch(() => showToast('Copy manually', 'error'));
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProfile();
+      const regInput = document.getElementById('reg-username');
+      if (regInput) regInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleRegisterWithoutWallet(); });
+      const userInput = document.getElementById('username-input');
+      if (userInput) userInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSetUsername(); });
+
+      setInterval(() => {
+        if (isLoggedIn()) {
+          const progress = getMiningProgress();
+          const miningEl = document.getElementById('prof-mining');
+          if (!miningEl) return;
+          if (progress.canClaim) {
+            miningEl.textContent = 'Claim!';
+            miningEl.style.color = '#00ff88';
+          } else if (progress.isMining) {
+            miningEl.textContent = formatTime(progress.remaining);
+            miningEl.style.color = 'var(--red-accent)';
+          }
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
